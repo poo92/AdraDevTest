@@ -8,5 +8,6 @@ namespace BusinessLayer.Service.Interfaces
 {
     interface IUserService
     {
+        string LoginUser(string username, string password);
     }
 }
