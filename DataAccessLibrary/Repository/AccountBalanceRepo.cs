@@ -10,11 +10,13 @@ namespace DataAccessLibrary.Repository
 {
     public class AccountBalanceRepo : IAccountBalanceRepo
     {
+        // upload account balance 
         public string UploadBalance(int year, int month, float rnd, float canteen, float ceoCar, float marketing, float parking)
         {
             return "uploaded successfully";
         }
 
+        // view balance of an account 
         public AccountBalance ViewBalance(int year, int month)
         {
             AccountBalance accountBalance = new AccountBalance();
@@ -30,6 +32,7 @@ namespace DataAccessLibrary.Repository
 
         }
 
+        // view balances of a time period
         public List<AccountBalance> ViewBalanceChart(int startYear, int startMonth, int endYear, int endMonth)
         {
             List<AccountBalance> resultList = new List<AccountBalance>();
