@@ -95,18 +95,58 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Model\AccountBalance.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="accountbalance.cs">
+      <DependentUpon>adradb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="adradb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>adradb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="adradb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>adradb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="adradb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>adradb.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AccountBalanceRepo.cs" />
     <Compile Include="Repository\Interfaces\IAccountBalanceRepo.cs" />
     <Compile Include="Repository\Interfaces\IUserRepo.cs" />
     <Compile Include="Repository\UserRepo.cs" />
+    <Compile Include="user.cs">
+      <DependentUpon>adradb.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="adradb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>adradb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="adradb.edmx.diagram">
+      <DependentUpon>adradb.edmx</DependentUpon>
+    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="adradb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>adradb.edmx</DependentUpon>
+      <LastGenOutput>adradb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="adradb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>adradb.edmx</DependentUpon>
+      <LastGenOutput>adradb.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

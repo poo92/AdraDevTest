@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace WebAPI.Models
+namespace EntityClasses
 {
     public class AccountBalance
     {
@@ -14,6 +15,6 @@ namespace WebAPI.Models
         public float ceoCar { get; set; }
         public float marketing { get; set; }
         public float parking { get; set; }
-        public int uId { get; set; }
+        public int uid { get; set; }
     }
 }

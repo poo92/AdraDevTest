@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="adradbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="accountbalance">
+          <Key>
+            <PropertyRef Name="year" />
+            <PropertyRef Name="month" />
+          </Key>
+          <Property Name="year" Type="int" Nullable="false" />
+          <Property Name="month" Type="int" Nullable="false" />
+          <Property Name="rnd" Type="float" />
+          <Property Name="canteen" Type="float" />
+          <Property Name="ceocar" Type="float" />
+          <Property Name="marketing" Type="float" />
+          <Property Name="parking" Type="float" />
+          <Property Name="uid" Type="int" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="uid" />
+          </Key>
+          <Property Name="uid" Type="int" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="usertype" Type="int" Nullable="false" />
+          <Property Name="fname" Type="nvarchar" MaxLength="50" />
+          <Property Name="lname" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_accountbalance_user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="accountbalance" Type="Self.accountbalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="uid" />
+            </Principal>
+            <Dependent Role="accountbalance">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="adradbModelStoreContainer">
+          <EntitySet Name="accountbalance" EntityType="Self.accountbalance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_accountbalance_user" Association="Self.FK_accountbalance_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="accountbalance" EntitySet="accountbalance" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="adradbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="accountbalance">
+          <Key>
+            <PropertyRef Name="year" />
+            <PropertyRef Name="month" />
+          </Key>
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="month" Type="Int32" Nullable="false" />
+          <Property Name="rnd" Type="Double" />
+          <Property Name="canteen" Type="Double" />
+          <Property Name="ceocar" Type="Double" />
+          <Property Name="marketing" Type="Double" />
+          <Property Name="parking" Type="Double" />
+          <Property Name="uid" Type="Int32" />
+          <NavigationProperty Name="user" Relationship="Self.FK_accountbalance_user" FromRole="accountbalance" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="uid" />
+          </Key>
+          <Property Name="uid" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="usertype" Type="Int32" Nullable="false" />
+          <Property Name="fname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="accountbalances" Relationship="Self.FK_accountbalance_user" FromRole="user" ToRole="accountbalance" />
+        </EntityType>
+        <Association Name="FK_accountbalance_user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="accountbalance" Type="Self.accountbalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="uid" />
+            </Principal>
+            <Dependent Role="accountbalance">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Dbcontext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="accountbalances" EntityType="Self.accountbalance" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_accountbalance_user" Association="Self.FK_accountbalance_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="accountbalance" EntitySet="accountbalances" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="adradbModelStoreContainer" CdmEntityContainer="Dbcontext">
+          <EntitySetMapping Name="accountbalances">
+            <EntityTypeMapping TypeName="adradbModel.accountbalance">
+              <MappingFragment StoreEntitySet="accountbalance">
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="rnd" ColumnName="rnd" />
+                <ScalarProperty Name="canteen" ColumnName="canteen" />
+                <ScalarProperty Name="ceocar" ColumnName="ceocar" />
+                <ScalarProperty Name="marketing" ColumnName="marketing" />
+                <ScalarProperty Name="parking" ColumnName="parking" />
+                <ScalarProperty Name="uid" ColumnName="uid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="adradbModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="usertype" ColumnName="usertype" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

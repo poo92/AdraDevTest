@@ -7,7 +7,7 @@ using System.Web.Http;
 using BusinessLayer.Service;
 using WebAPI.Models;
 
-namespace WebAPI.Controllers
+namespace WebAPI.ApiControllers
 {
     public class UserController : ApiController
     {

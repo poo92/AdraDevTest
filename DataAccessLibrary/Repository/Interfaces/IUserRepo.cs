@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Repository.Interfaces
 {
-    interface IUserRepo
+   public interface IUserRepo
     {
         string LoginUser(string username, string HashPassword);
         

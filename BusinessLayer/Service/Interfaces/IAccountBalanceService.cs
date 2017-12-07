@@ -1,4 +1,4 @@
-﻿using DataAccessLibrary.Model;
+﻿using EntityClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +10,10 @@ namespace BusinessLayer.Service.Interfaces
     interface IAccountBalanceService
     {
         // upload balance
-        string UploadBalance(int year, int month, float rnd, float canteen, float ceoCar, float marketing, float parking);
+        string UploadBalance(AccountBalance accountbalance);
         // View balance of a month
-        string ViewBalance(int year, int month);
+        AccountBalance ViewBalance(int year, int month);
         // view balances of a time period
-        string[] ViewBalanceChart(int startYear, int startMonth, int endYear, int endMonth);
+        List<AccountBalance> ViewBalanceChart(int startYear, int startMonth, int endYear, int endMonth);
     }
 }

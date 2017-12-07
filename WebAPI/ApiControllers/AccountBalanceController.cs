@@ -5,10 +5,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BusinessLayer.Service;
-using WebAPI.Models;            // AccountBalance class 
 using Newtonsoft.Json.Linq;     // json.NET
+using EntityClasses;
+using WebAPI.ApiModels;
 
-namespace WebAPI.Controllers
+namespace WebAPI.ApiControllers
 {
     public class AccountBalanceController : ApiController
     {
@@ -22,28 +23,19 @@ namespace WebAPI.Controllers
         [Route("api/AccountBalance/UploadBalance")]                 // method to upload the account balances
         [HttpPost]
         public string UploadBalance(AccountBalance accountBalance)
-        {
-            int year = accountBalance.year;
-            int month = accountBalance.month;
-            float rnd = accountBalance.rnd;
-            float canteen = accountBalance.canteen;
-            float ceoCar = accountBalance.ceoCar;
-            float marketing = accountBalance.marketing;
-            float parking = accountBalance.parking;
-
-            return _AccountBalanceService.UploadBalance(year, month, rnd, canteen, ceoCar, marketing, parking);
-
+        {            
+            return _AccountBalanceService.UploadBalance(accountBalance);
 
         }
 
 
         [Route("api/AccountBalance/ViewBalance")]               // method to View  account balance of a month
         [HttpPost]
-        public string ViewBalance(JObject jsonData)
+        public AccountBalance ViewBalance(UserRequest userRequest)
         {
-            dynamic json = jsonData;
-            int year = json.year;
-            int month = json.month;
+            
+            int year = userRequest.year;
+            int month = userRequest.month;
             return _AccountBalanceService.ViewBalance(year, month);
 
 
@@ -52,13 +44,13 @@ namespace WebAPI.Controllers
 
         [Route("api/AccountBalance/ViewBalanceChart")]
         [HttpPost]
-        public string[] ViewBalanceChart(JObject jsonData)      // method to View  account balance of a time period
+        public List<AccountBalance> ViewBalanceChart(UserRequest userRequest)      // method to View  account balance of a time period
         {
-            dynamic json = jsonData;
-            int startYear = json.startYear;
-            int startMonth = json.startMonth;
-            int endYear = json.endYear;
-            int endMonth = json.endMonth;
+            
+            int startYear = userRequest.startYear;
+            int startMonth = userRequest.startMonth;
+            int endYear = userRequest.endYear;
+            int endMonth = userRequest.endMonth;
 
             return _AccountBalanceService.ViewBalanceChart(startYear, startMonth, endYear, endMonth);
 
