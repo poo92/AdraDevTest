@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BusinessLayer.Service;
-using WebAPI.Models;
+using EntityClasses;
 
 namespace WebAPI.ApiControllers
 {
@@ -17,13 +17,15 @@ namespace WebAPI.ApiControllers
             _UserService = new UserService();   // initialize BL object
         }
 
-        [Route("api/UserLogin/Login")]
+        [Route("api/User/Login")]
         [HttpPost]
         public string Login(User user)
         {
-            string username = user.username;
-            string password = user.password;
-            return _UserService.LoginUser(username, password);
+            //string username = user.username;
+            //string password = user.password;
+            //return _UserService.LoginUser(username, password);
+
+            return "success";
         }
     }
 }

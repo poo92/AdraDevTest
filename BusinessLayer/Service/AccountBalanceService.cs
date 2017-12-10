@@ -84,7 +84,33 @@ namespace BusinessLayer.Service
             return result;
         }
 
+        public double ViewCurrentBalance(string accountType)
+        {
+            double balance=0.0;
+            accountbalance accountBalance = _AccountBalanceRepo.ViewCurrentBalance();
+            
+            if(accountType == "rnd")
+            {
+                balance = (double)accountBalance.rnd;
+            }
+            else if(accountType == "canteen")
+            {
+                balance = (double)accountBalance.canteen;
+            }else if(accountType == "ceocar")
+            {
+                balance = (double)accountBalance.ceocar;
+            }
+            else if (accountType == "marketing")
+            {
+                balance = (double)accountBalance.marketing;
+            }
+            else if (accountType == "parking")
+            {
+                balance = (double)accountBalance.parking;
+            }
 
+            return balance;
+        }
 
 
     }

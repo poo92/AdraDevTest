@@ -1,0 +1,45 @@
+﻿<div class="container col-sm-10 col-sm-offset-1 ">
+    <div class="panel panel-default">
+        <div class="panel-heading"> Upload Account File  </div>
+
+        <div class="panel-body">
+            <form name="uploadBalance">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-1" for="year">Year</label>
+                        <input class="form-control col-sm-3" type="number" name="year" id="year" ng-model="year" ng-maxlength="4" min="2000"/>
+                        
+                        <label for="month" class="col-sm-1 col-sm-offset-1">Month</label>
+                        <input class="form-control col-sm-3" type="number" name="month" id="month" ng-model="month" ng-maxlength="2" min="1" max="12"/>
+                       </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <p class="col-sm-3 col-sm-offset-1" style="color:red" ng-if="!uploadBalance.year.$valid">Please enter a valid year</p>
+
+                        <p class="col-sm-3 col-sm-offset-5" style="color:red" ng-if="!uploadBalance.month.$valid">Please enter a valid month</p>
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="row">
+                    <div class="form-group">
+                        <input class="col-sm-3" type="file" name="file" id="file" ng-model="file" />
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="row">
+                    <div class="form-group">
+                        <button class="btn btn-primary col-sm-1 col-sm-offset-9" type="submit" ng-click="UploadBalance()">Upload</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>

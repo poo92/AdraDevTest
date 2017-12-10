@@ -49,7 +49,17 @@ namespace DataAccessLibrary.Repository
             return resultList;
         }
 
-    }
 
+        public accountbalance ViewCurrentBalance()
+        {
+            accountbalance maximum = DbContext.accountbalances.OrderByDescending(o => o.year).ThenByDescending(o => o.month).FirstOrDefault();
+            return maximum;
+
+
+        }
+
+
+
+    }
 }
 

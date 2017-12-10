@@ -18,7 +18,13 @@ namespace WebAPI
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/angular.js",
+                      "~/Scripts/angular-route.js",
+                      "~/ApiScripts/app-adradevtest.js",
+                      "~/ApiScripts/loginController.js",
+                      "~/ApiScripts/dashboardController.js"
+                      ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

@@ -16,5 +16,7 @@ namespace DataAccessLibrary.Repository.Interfaces
 
         // view balances of a time period
         List<accountbalance> ViewBalanceChart(int startYear, int startMonth, int endYear, int endMonth);
+
+        accountbalance ViewCurrentBalance();
     }
 }

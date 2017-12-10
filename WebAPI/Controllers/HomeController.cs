@@ -14,5 +14,12 @@ namespace WebAPI.Controllers
 
             return View();
         }
+
+        public ActionResult Dashboard()
+        {
+            ViewBag.Title = "User Dashboard";
+
+            return View();
+        }
     }
 }

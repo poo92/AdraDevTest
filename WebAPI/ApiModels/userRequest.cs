@@ -13,6 +13,7 @@ namespace WebAPI.ApiModels
         public int startMonth { get; set; }
         public int endYear { get; set; }
         public int endMonth { get; set; }
+        public string accountType { get; set; }
 
     }
 }

@@ -23,7 +23,7 @@ namespace WebAPI.ApiControllers
         [Route("api/AccountBalance/UploadBalance")]                 // method to upload the account balances
         [HttpPost]
         public string UploadBalance(AccountBalance accountBalance)
-        {            
+        {
             return _AccountBalanceService.UploadBalance(accountBalance);
 
         }
@@ -33,12 +33,11 @@ namespace WebAPI.ApiControllers
         [HttpPost]
         public AccountBalance ViewBalance(UserRequest userRequest)
         {
-            
+
             int year = userRequest.year;
             int month = userRequest.month;
+
             return _AccountBalanceService.ViewBalance(year, month);
-
-
         }
 
 
@@ -46,15 +45,22 @@ namespace WebAPI.ApiControllers
         [HttpPost]
         public List<AccountBalance> ViewBalanceChart(UserRequest userRequest)      // method to View  account balance of a time period
         {
-            
+
             int startYear = userRequest.startYear;
             int startMonth = userRequest.startMonth;
             int endYear = userRequest.endYear;
             int endMonth = userRequest.endMonth;
 
             return _AccountBalanceService.ViewBalanceChart(startYear, startMonth, endYear, endMonth);
+        }
 
+        [Route("api/AccountBalance/ViewCurrentBalance")]
+        [HttpPost]
+        public double ViewCurrentBalance(UserRequest userRequest)      // method to View  account balance of a time period
+        {
+            string accountType = userRequest.accountType;
 
+            return _AccountBalanceService.ViewCurrentBalance(accountType);
         }
 
     }

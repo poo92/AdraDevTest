@@ -1,0 +1,43 @@
+﻿<div class="container">
+    <h2 class="col-sm-12">Admin Dashboard</h2>
+</div>
+<br />
+
+<div class="container">
+    <div class="row">
+
+
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="font-weight:bold">User Handling</div>
+                <div class="panel-body">
+                    <div class="row container" style="align-content:center">
+                        <button class="btn btn-primary"> Add User</button>
+                        <button class="btn btn-primary"> Delete User</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-7 col-sm-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="font-weight:bold">Account Handling</div>
+                <div class="panel-body" style="align-content:center">
+                    <div class="row container">
+                        <button class="btn btn-primary" id="uploadBalance"  ng-click="HandleButtonPress($event)"> Upload Account Balance </button>
+                        <button class="btn btn-primary" id="viewBalance" ng-click="HandleButtonPress($event)"> View Account Balance </button>
+                        <button class="btn btn-primary" id="viewBalanceChart"  ng-click="HandleButtonPress($event)"> View Balance Summary </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+<div class="container">
+    <ng-include src="viewPage"></ng-include>
+</div>
