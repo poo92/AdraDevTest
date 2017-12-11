@@ -14,6 +14,8 @@ namespace WebAPI.ApiModels
         public int endYear { get; set; }
         public int endMonth { get; set; }
         public string accountType { get; set; }
+        public string  fileContent { get; set; }
+
 
     }
 }

@@ -21,9 +21,13 @@ namespace WebAPI
                       "~/Scripts/respond.js",
                       "~/Scripts/angular.js",
                       "~/Scripts/angular-route.js",
+                      "~/Scripts/highcharts/highcharts.js",
+                       "~/Scripts/ng-file-upload.js",
+                      "~/Scripts/highcharts/modules/exporting.js",
                       "~/ApiScripts/app-adradevtest.js",
-                      "~/ApiScripts/loginController.js",
-                      "~/ApiScripts/dashboardController.js"
+                      "~/ApiScripts/Controllers/loginController.js",
+                      "~/ApiScripts/Controllers/dashboardController.js",
+                      "~/ApiScripts/Services/dataService.js"
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

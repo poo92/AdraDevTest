@@ -1,16 +1,19 @@
-﻿<div class="container col-sm-10 col-sm-offset-1 ">
+﻿
+<div class="container col-sm-10 col-sm-offset-1 ">
     <div class="panel panel-default">
         <div class="panel-heading"> Upload Account Balance  </div>
 
         <div class="panel-body">
-            <form name="ViewBalanceChart">
+            <form name="viewBalanceChart">
                 <div class="row">
                     <div class="form-group">
                         <label class="col-sm-1" for="year">start Year</label>
-                        <input class="form-control col-sm-3" type="number" name="startYear" id="startYear" ng-model="startYear" ng-maxlength="4" min="2000"/>
+                        <input class="form-control col-sm-2" type="number" name="startYear" id="startYear" ng-model="$parent.startYear" ng-maxlength="4" min="2016" placeholder="2016" ng-class="{ 'has-error' : viewBalanceChart.startYear.$invalid && !viewBalanceChart.startYear.$pristine}" />
 
                         <label for="month" class="col-sm-1 col-sm-offset-1">Start Month</label>
-                        <input class="form-control col-sm-3" type="number" name="startMonth" id="startMonth" ng-model="startMonth" ng-maxlength="2" min="1" max="12" />
+                        <!--<input class="form-control col-sm-3" type="number" name="startMonth" id="startMonth" ng-model="$parent.startMonth" ng-maxlength="2" min="1" max="12" required/>-->
+                        <select class="form-control col-sm-2" name="startMonth" id="startMonth" ng-model="$parent.startMonth" month-options></select>
+
                     </div>
                 </div>
 
@@ -18,8 +21,8 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <p class="col-sm-3 col-sm-offset-1" style="color:red" ng-if="!ViewBalanceChart.startYear.$valid">Please enter a valid year</p>
-                        <p class="col-sm-3 col-sm-offset-5" style="color:red" ng-if="!ViewBalanceChart.startMonth.$valid">Please enter a valid month</p>
+                        <p class="col-sm-3 col-sm-offset-1" style="color:red" ng-if="viewBalanceChart.startYear.$invalid">Please enter a valid year</p>
+                        <p class="col-sm-3 col-sm-offset-5" style="color:red" ng-if="viewBalanceChart.startMonth.$invalid">Please enter a valid month</p>
                     </div>
                 </div>
 
@@ -28,10 +31,12 @@
                 <div class="row">
                     <div class="form-group">
                         <label class="col-sm-1" for="year">End Year</label>
-                        <input class="form-control col-sm-3" type="number" name="endYear" id="endYear" ng-model="endYear" ng-maxlength="4" min="2000"/>
+                      <input class="form-control col-sm-2" type="number" name="endYear" id="endYear" ng-model="$parent.endYear" ng-maxlength="4" min="2016" placeholder="2016" ng-class="{ 'has-error' : viewBalanceChart.endYear.$invalid && !viewBalanceChart.endYear.$pristine}" />
 
                         <label for="month" class="col-sm-1 col-sm-offset-1">End Month</label>
-                        <input class="form-control col-sm-3" type="number" name="endMonth" id="endMonth" ng-model="endMonth" ng-maxlength="2" min="1" max="12" />
+                        <!--<input class="form-control col-sm-3" type="number" name="endMonth" id="endMonth" ng-model="$parent.endMonth" ng-maxlength="2" min="1" max="12" required/>-->
+                        <select class="form-control col-sm-2" name="endMonth" id="endMonth" ng-model="$parent.endMonth" month-options></select>
+
                     </div>
                 </div>
 
@@ -39,8 +44,8 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <p class="col-sm-3 col-sm-offset-1" style="color:red" ng-if="!ViewBalanceChart.endYear.$valid">Please enter a valid year</p>
-                        <p class="col-sm-3 col-sm-offset-5" style="color:red" ng-if="!ViewBalanceChart.endMonth.$valid">Please enter a valid month</p>
+                        <p class="col-sm-3 col-sm-offset-1" style="color:red" ng-if="viewBalanceChart.endYear.$invalid">Please enter a valid year</p>
+                        <p class="col-sm-3 col-sm-offset-5" style="color:red" ng-if="viewBalanceChart.endMonth.$invalid">Please enter a valid month</p>
                     </div>
                 </div>
 
@@ -49,12 +54,17 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <button class="btn btn-primary col-sm-1 col-sm-offset-9" type="submit" ng-click="ViewBalanceChart()">View</button>
+                        <button class="btn btn-primary col-sm-1 col-sm-offset-9" type="submit" ng-click="ViewBalanceChart()" ng-disabled="viewBalanceChart.startYear.$error.required || viewBalanceChart.startMonth.$error.required || viewBalanceChart.endYear.$error.required || viewBalanceChart.endMonth.$error.required || ViewBalanceChart.startYear.$invalid || viewBalanceChart.endYear.$invalid || viewBalanceChart.startMonth.$pristine || viewBalanceChart.endMonth.$pristine ||  viewBalanceChart.startYear.$pristine || viewBalanceChart.endYear.$pristine "> View </button>
                     </div>
                 </div>
 
             </form>
         </div>
 
+    </div>    
+    <div id="chartContainer">
+
     </div>
-</div>
+
+    </div>
+

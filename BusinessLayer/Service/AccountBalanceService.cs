@@ -23,6 +23,8 @@ namespace BusinessLayer.Service
         // upload balance
         public string UploadBalance(AccountBalance accountBalance)
         {
+            string uploadStatus;
+
             accountbalance accountBalanceDAL = new accountbalance();
             accountBalanceDAL.year = accountBalance.year;
             accountBalanceDAL.month = accountBalance.month;
@@ -33,7 +35,16 @@ namespace BusinessLayer.Service
             accountBalanceDAL.parking = accountBalance.parking;
             accountBalanceDAL.uid = accountBalance.uid;
 
-            string uploadStatus = _AccountBalanceRepo.UploadBalance(accountBalanceDAL);
+            AccountBalance existingRecord = ViewBalance(accountBalance.year, accountBalance.month);
+            if(existingRecord != null)
+            {
+                uploadStatus = "Balances of this month already exsists in the database";
+            }
+            else
+            {
+                uploadStatus = _AccountBalanceRepo.UploadBalance(accountBalanceDAL);
+            }
+            
             return uploadStatus;
 
         }
@@ -44,14 +55,29 @@ namespace BusinessLayer.Service
             accountbalance accountBalance = _AccountBalanceRepo.ViewBalance(year,month);
             AccountBalance accountBalanceResult = new AccountBalance();
 
-            accountBalanceResult.year = accountBalance.year;
-            accountBalanceResult.month = accountBalance.month;
-            accountBalanceResult.rnd = (double)accountBalance.rnd;
-            accountBalanceResult.canteen = (double)accountBalance.canteen;
-            accountBalanceResult.ceocar = (double)accountBalance.ceocar;
-            accountBalanceResult.marketing = (double)accountBalance.marketing;
-            accountBalanceResult.parking = (double)accountBalance.parking;
-            accountBalanceResult.uid = (int)accountBalance.uid;
+            if(accountBalance != null)
+            {
+                accountBalanceResult.year = accountBalance.year;
+                accountBalanceResult.month = accountBalance.month;
+                accountBalanceResult.rnd = (double)accountBalance.rnd;
+                accountBalanceResult.canteen = (double)accountBalance.canteen;
+                accountBalanceResult.ceocar = (double)accountBalance.ceocar;
+                accountBalanceResult.marketing = (double)accountBalance.marketing;
+                accountBalanceResult.parking = (double)accountBalance.parking;
+                accountBalanceResult.uid = (int)accountBalance.uid;
+            }else
+            {
+                accountBalanceResult.year = 0;
+                accountBalanceResult.month =0;
+                accountBalanceResult.rnd = 0;
+                accountBalanceResult.canteen = 0;
+                accountBalanceResult.ceocar = 0;
+                accountBalanceResult.marketing = 0;
+                accountBalanceResult.parking = 0;
+                accountBalanceResult.uid = 0;
+            }
+
+
 
             //            string result = accountBalanceresult.year.ToString() + accountBalanceresult.month.ToString() + accountBalanceresult.rnd.ToString() + accountBalanceresult.canteen.ToString() + accountBalanceresult.ceocar.ToString() + accountBalanceresult.marketing.ToString() + accountBalanceresult.parking.ToString();
             return accountBalanceResult;

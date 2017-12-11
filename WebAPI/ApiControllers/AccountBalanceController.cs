@@ -8,6 +8,9 @@ using BusinessLayer.Service;
 using Newtonsoft.Json.Linq;     // json.NET
 using EntityClasses;
 using WebAPI.ApiModels;
+using System.IO;
+using System.Net.Http;
+using System.Web.Http;
 
 namespace WebAPI.ApiControllers
 {
@@ -22,9 +25,82 @@ namespace WebAPI.ApiControllers
 
         [Route("api/AccountBalance/UploadBalance")]                 // method to upload the account balances
         [HttpPost]
-        public string UploadBalance(AccountBalance accountBalance)
+        //public List<string[]> UploadBalance(UserRequest userRequest)
+        public string UploadBalance(UserRequest userRequest)
         {
-            return _AccountBalanceService.UploadBalance(accountBalance);
+            string[] months = { "January","February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+            string result = "";
+
+            string fileContent = userRequest.fileContent;
+            int year = userRequest.year;
+
+            char delimiterNewLine = '\n';
+            char delimiterTab = '\t';
+            string[] lineSeperated = fileContent.Split(delimiterNewLine); // seperate line by line
+            List<string[]> tabSeperated = new List<string[]>();
+            double[] balances = new double[5];
+
+
+
+            for (int i = 0; i < 6; i++)
+            {
+                string[] splitted = lineSeperated[i].Split(delimiterTab);  // seperate by tab 
+                tabSeperated.Add(splitted);
+            }
+            
+            string[] tabSeperatedArrayForMonth = tabSeperated[0];
+            string month = tabSeperatedArrayForMonth[tabSeperatedArrayForMonth.Length - 1].Replace("\r", "");
+            int monthIndex = 0;
+
+            for (int i = 0; i < 12; i++)
+            {                
+            if (months[i].Equals(month))
+                {
+                    monthIndex = i + 1;
+                }
+            }
+
+
+            if (monthIndex == 0)
+            {
+                result = "The month in the file is incorrect.Please check again";
+            }
+            else
+            {
+                for (int i = 1; i < 6; i++)
+                {
+                    string[] tabSeperatedArray = tabSeperated[i];
+                    string balance = tabSeperatedArray[tabSeperatedArray.Length - 1].Replace(",", ""); // replace commas
+                    double balanceDouble;
+                    try
+                    {
+                        balanceDouble = Convert.ToDouble(balance);      // convert to double values
+                        balances[i - 1] = balanceDouble;
+                    }
+                    catch (FormatException)
+                    {
+                        result = "Balance amounts are incorrect.Please check again.";
+                    }
+                    catch (OverflowException)
+                    {
+                        result = "Balance amounts are incorrect.Please check again.";
+                    }
+                }
+
+                AccountBalance accountBalance = new AccountBalance();
+                accountBalance.year = year;
+                accountBalance.month = monthIndex;
+                accountBalance.rnd = balances[0];
+                accountBalance.canteen = balances[1];
+                accountBalance.ceocar = balances[2];
+                accountBalance.marketing = balances[3];
+                accountBalance.parking = balances[4];
+                accountBalance.uid = 1;
+
+
+                result = _AccountBalanceService.UploadBalance(accountBalance);
+            }
+            return  result;
 
         }
 

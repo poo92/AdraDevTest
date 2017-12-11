@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict"
 
-    var app = angular.module('adraDevTest', ["ngRoute"])
+    var app = angular.module('adraDevTest', ["ngRoute","ngFileUpload"])
 
     app.config(function ($routeProvider) {
         $routeProvider
@@ -13,36 +13,70 @@
             controller: "dashboardController",
             templateUrl: "../ApiViews/AdminDashboard.html"
         })
-        .when("/AdminDashboard/UploadBalance", {
-            controller:"dashboardController",
-            templateUrl: "../ApiViews/UploadBalance.html"
+        .when("/UserDashboard", {
+            controller: "dashboardController",
+            templateUrl: "../ApiViews/UserDashboard.html"
         })
-        .when("/blue", {
-            templateUrl: "blue.htm"
-        }).otherwise({ redirect:"/"})
+        .when("/ViewAccountBalances", {
+            controller: "dashboardController",
+            templateUrl: "../ApiViews/ViewBalanceResult.html"
+        })
+        .when("/ViewAccountBalancesSummary", {
+            templateUrl: "../ApiViews/ViewBalanceSummaryResult.html"
+        }).otherwise({ redirect: "/" })
     });
 
-    app.controller('viewBalanceController', function ($scope, $http, $window) {
 
-        $scope.Search = function () {
-            var userRequest = '{year: "' + $scope.year + '" ,month:"' + $scope.month + '" }';
-            $http({
-                method: "POST",
-                url: "../api/AccountBalance/ViewBalance",
-                dataType: 'json',
-                data: userRequest,
-                headers: { "Content-Type": "application/json" }
-            }).then(function OnSuccess(response) {
-                console.log(response.data)
-            }, function OnError(Error) {
-                console.log(Error)
-            }
-            )
 
+
+    app.directive('monthOptions', function () {
+        return {
+            template:
+                '<option disabled selected value> -- select a  month -- </option>' +
+                '<option value=1 >January</option>' +
+                '<option value=2 >February</option>' +
+                '<option value=3 >March</option>' +
+                '<option value=4 >April</option>' +
+                '<option value=5 >May</option>' +
+                '<option value=6 >June</option>' +
+                '<option value=7 >July</option>' +
+                '<option value=8 >August</option>' +
+                '<option value=9 >September</option>' +
+                '<option value=10 >October</option>' +
+                '<option value=11 >November</option>' +
+                '<option value=12 >December</option>'
         }
     });
 
-    app.controller('viewBalanceChartController', function ($scope, $http, $window) { });
+
+    app.directive('hcChart', function () {
+        return {
+            restrict: 'E',
+            template: '<div></div>',
+            scope: {
+                options: '='
+            },
+            link: function (scope, element) {
+                Highcharts.chart(element[0], scope.options);
+            }
+        };
+    });
+
+    app.directive('validFile', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, el, attrs, ngModel) {
+                el.bind('change', function () {
+                    scope.$apply(function () {
+                        ngModel.$setViewValue(el.val());
+                        ngModel.$render();
+                    });
+                });
+            }
+        }
+    });
+
+
 
 
 })();

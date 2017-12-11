@@ -11,6 +11,8 @@
         }).then(function OnSuccess(response) {
             if (response.data == "success") {              
                 $window.location.href = "#!AdminDashboard/";
+                //$window.location.href = "#!UserDashboard/";
+
             }
         }, function OnError(Error) {
             console.log(Error)

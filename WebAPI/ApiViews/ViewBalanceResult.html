@@ -1,0 +1,26 @@
+﻿<div class="container col-sm-10 col-sm-offset-1 ">
+    <div class="panel panel-default">
+        <div class="panel-heading"> Balances as of {{ accountBalance.month }} {{ accountBalance.year }}  </div>
+
+        <div class="panel-body">
+            <table class="table table-responsive table-bordered">
+                <tr >
+                    <th>R&D</th>
+                    <th>Canteen</th>
+                    <th>CEO’s</th>
+                    <th>Marketing</th>
+                    <th>Parkings fines</th>
+                </tr>
+                <tr>
+                    <td> Rs {{ accountBalance.rnd }}</td>
+                    <td> Rs {{ accountBalance.canteen }}</td>
+                    <td> Rs {{ accountBalance.ceocar }}</td>
+                    <td> Rs {{ accountBalance.marketing }}</td>
+                    <td> Rs {{ accountBalance.parking }}</td>
+                </tr>
+              
+            </table>
+        </div>
+
+    </div>
+</div>
