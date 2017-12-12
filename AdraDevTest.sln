@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityClasses", "EntityClasses\EntityClasses.csproj", "{4932CE4B-8E33-4FF2-A9AE-BA99FD458A18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdraUnitTests", "AdraUnitTests\AdraUnitTests.csproj", "{032CBB33-45DB-44E8-96B0-A7C122C2FF7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4932CE4B-8E33-4FF2-A9AE-BA99FD458A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4932CE4B-8E33-4FF2-A9AE-BA99FD458A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4932CE4B-8E33-4FF2-A9AE-BA99FD458A18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{032CBB33-45DB-44E8-96B0-A7C122C2FF7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{032CBB33-45DB-44E8-96B0-A7C122C2FF7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{032CBB33-45DB-44E8-96B0-A7C122C2FF7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{032CBB33-45DB-44E8-96B0-A7C122C2FF7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

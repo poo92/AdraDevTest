@@ -8,7 +8,9 @@ namespace DataAccessLibrary.Repository.Interfaces
 {
    public interface IUserRepo
     {
-        string LoginUser(string username, string HashPassword);
-        
+        //string LoginUser(string username, string HashPassword);
+        string AddUser(user user);
+        user ViewUser(string username);
+
     }
 }

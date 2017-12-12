@@ -9,18 +9,48 @@ namespace DataAccessLibrary.Repository
 {
     public class UserRepo : IUserRepo
     {
+        private Dbcontext DbContext;
+        public UserRepo()
+        {
+            DbContext = new Dbcontext();
+        }
+
+        // add user method
+        public string AddUser(user user)
+        {
+
+            DbContext.users.Add(user);
+            int result = DbContext.SaveChanges();
+
+            if (result != 0)
+            {
+                return "User Added succesfully";
+            }
+            else
+            {
+                return "An error occured.Please try again";
+            }
+        }
+
+
+        public user ViewUser(string username)
+        {
+            user user = DbContext.users.Where(o => o.username == username).FirstOrDefault();
+            return user;
+        }
 
         // Login method
-        public string LoginUser(string username, string HashPassword)
-        {
-            return "Login Complete";
-            //string hashedPassword = DbContext.Users.Where(o => o.UserName == username).Select(o => o.Password).FirstOrDefault().ToString();
-            //if (hashedPassword == HashPassword)
-            // {
-            //  return "Login Complete";
-            //}
-            //return "Login Fail";
-        }
+        //public string LoginUser(string username, string HashPassword)
+        //{
+            
+        //    //string hashedPassword = DbContext.Users.Where(o => o.UserName == username).Select(o => o.Password).FirstOrDefault().ToString();
+        //    //if (hashedPassword == HashPassword)
+        //    // {
+        //    //  return "Login Complete";
+        //    //}
+        //    //return "Login Fail";
+        //}
+
 
     }
 }

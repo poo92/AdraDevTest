@@ -15,3 +15,30 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+.required{
+    color:red;
+}
+
+.panel-header-main{
+    font-weight:bold;
+}
+
+.panel-header-normal{
+    font-weight:600;
+}
+
+.modalViewBalanceChartCenter {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+}
+
+.modalViewBalanceCenter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

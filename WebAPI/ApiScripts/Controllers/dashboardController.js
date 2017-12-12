@@ -1,5 +1,9 @@
 ﻿angular.module('adraDevTest')
-.controller('dashboardController', function ($scope, $http, $window, $location, Upload, $timeout) {
+.controller('dashboardController', function ($scope, $http, $window, $location, $timeout, loginService, sessionService) {
+    $scope.showViewBalanceModal = false;
+    $scope.showViewBalanceChartModal = false;
+
+    $scope.username = sessionService.get("username");
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     $scope.isVisibleCurrentBalancePanel = false;
 
@@ -10,6 +14,8 @@
 
 
         } else if (buttonid == "viewBalance") {
+            $scope.showViewBalanceModal = false;
+            $scope.showViewBalanceChartModal = false;
             $scope.viewPage = "../ApiViews/ViewBalance.html";
 
 
@@ -21,6 +27,23 @@
         }
     }
 
+    $scope.AddUser = function () {
+        var user = '{username:"' + $scope.username + '",password: "' + $scope.password + '",userType: "' + $scope.userType + '",fname: "' + $scope.fname + '",lname: "' + $scope.lname + '"}';
+        $http({
+            method: "POST",
+            url: "../api/User/AddUser",
+            dataType: 'json',
+            data: user,
+            headers: { "Content-Type": "application/json" }
+        }).then(function OnSuccess(response) {
+            $window.alert(response.data);
+            if (response.data == "User Added succesfully") {
+                $window.location.href = "#!AdminDashboard/";
+            }
+        }, function OnError(Error) {
+            console.log(Error)
+        })
+    }
 
     $scope.UploadBalance = function () {
         var year = document.getElementById("year").value;
@@ -112,13 +135,18 @@
             } else {
                 $scope.$parent.accountBalance = response.data;
                 $scope.$parent.accountBalance.month = months[response.data.month - 1];
-                $window.location.href = "#!ViewAccountBalances/";
+                $scope.showViewBalanceModal = true;             
+               
             }
 
         }, function OnError(Error) {
             console.log(Error)
         }
         )
+    }
+    $scope.HandleViewBalanceModal = function(){
+        $scope.showViewBalanceModal = true;
+        $window.location.href = "#!AdminDashboard/";
     }
 
     $scope.ViewBalanceChart = function () {
@@ -227,13 +255,8 @@
                 }
 
             });
-
-
-
-
-
-
-            //$window.location.href = "#!ViewAccountBalancesSummary/";
+            $scope.showViewBalanceChartModal = true;
+            
         }, function OnError(Error) {
             console.log(Error)
         }
@@ -241,6 +264,10 @@
 
     }
 
+    $scope.HandleViewBalanceChartModal = function () {
+        $scope.showViewBalanceChartModal = true;
+        $window.location.href = "#!AdminDashboard/";
+    }
 
     $scope.ViewCurrentBalance = function () {
         var UserRequest = '{accountType: "' + $scope.accountType + '"}';
@@ -260,6 +287,14 @@
         })
 
     }
+
+    $scope.Logout = function () {
+        loginService.Logout();
+    }
+
+
+
+  
 
 
 

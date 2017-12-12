@@ -23,9 +23,10 @@ namespace DataAccessLibrary
         public int uid { get; set; }
         public string username { get; set; }
         public string password { get; set; }
-        public int usertype { get; set; }
+        public int userType { get; set; }
         public string fname { get; set; }
         public string lname { get; set; }
+        public string salt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<accountbalance> accountbalances { get; set; }

@@ -1,16 +1,16 @@
 ﻿<div class="container col-sm-10 col-sm-offset-1 ">
     <div class="panel panel-default">
-        <div class="panel-heading"> Add User </div>
+        <div class="panel-heading panel-header-normal"> Add User </div>
 
         <div class="panel-body">
             <form name="addUser">
 
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-sm-2 text-center" for="username"> Username <span style="color:red">*</span></label>
+                        <label class="col-sm-2 text-center" for="username"> Username <span class="required">*</span></label>
                         <input class="form-control col-sm-2" type="text" name="username" id="username" ng-model="$parent.username" required/>
 
-                        <label for="password" class="col-sm-2 text-center"> Password <span style="color:red">*</span></label>
+                        <label for="password" class="col-sm-2 text-center"> Password <span class="required">*</span></label>
                         <input class="form-control col-sm-2" type="text" name="password" id="password" ng-model="$parent.password" required/>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <p class="col-sm-3 col-sm-offset-1" style="color:red" ng-show="viewBalance.year.$invalid">Please enter a valid year</p>
+                        <p class="col-sm-3 col-sm-offset-1 required" ng-show="viewBalance.year.$invalid">Please enter a valid year</p>
                     </div>
                 </div>
 
@@ -28,10 +28,10 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-sm-2 text-center" for="fname"> First Name <span style="color:red">*</span></label>
+                        <label class="col-sm-2 text-center" for="fname"> First Name <span class="required">*</span></label>
                         <input class="form-control col-sm-2" type="text" name="fname" id="fname" ng-model="$parent.fname" required />
 
-                        <label for="lname" class="col-sm-2 text-center"> Last Name <span style="color:red">*</span></label>
+                        <label for="lname" class="col-sm-2 text-center"> Last Name <span class="required">*</span></label>
                         <input class="form-control col-sm-2" type="text" name="lname" id="lname" ng-model="$parent.lname" required />
                     </div>
                 </div>
@@ -41,7 +41,7 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-sm-2 text-center" for="userType"> User Type <span style="color:red">*</span></label>
+                        <label class="col-sm-2 text-center" for="userType"> User Type <span class="required">*</span></label>
                        <select class="form-control col-sm-2" name="userType" id="userType" ng-model="$parent.userType" required>
                             <option disabled selected value> -- select -- </option>
                             <option value=1 >Admin User</option>

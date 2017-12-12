@@ -12,7 +12,8 @@ namespace EntityClasses
         public string username { get; set; }
         public string password { get; set; }
         public int userType { get; set; }
-        public string fName { get; set; }
-        public string lName { get; set; }
+        public string fname { get; set; }
+        public string lname { get; set; }
+        public string salt { get; set; }
     }
 }

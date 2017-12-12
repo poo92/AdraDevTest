@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict"
 
-    var app = angular.module('adraDevTest', ["ngRoute","ngFileUpload"])
+    var app = angular.module('adraDevTest', ["ngRoute"])
 
     app.config(function ($routeProvider) {
         $routeProvider
@@ -11,11 +11,25 @@
         })
         .when("/AdminDashboard/", {
             controller: "dashboardController",
-            templateUrl: "../ApiViews/AdminDashboard.html"
+            templateUrl: "../ApiViews/AdminDashboard.html",
+            resolve: {
+                "check": function (loginService, $location) {   //function to be resolved, accessFac and $location Injected
+                    if (!loginService.isLoggedIn()) {    //check if the user has permission -- This happens before the page loads
+                        $location.path('/');
+                    }
+                }
+            }
         })
         .when("/UserDashboard", {
             controller: "dashboardController",
-            templateUrl: "../ApiViews/UserDashboard.html"
+            templateUrl: "../ApiViews/UserDashboard.html",
+            resolve: {
+                "check": function (loginService, $location) {   //function to be resolved, accessFac and $location Injected
+                    if (!loginService.isLoggedIn()) {    //check if the user has permission -- This happens before the page loads
+                        $location.path('/');
+                    }
+                }
+            }
         })
         .when("/ViewAccountBalances", {
             controller: "dashboardController",
@@ -61,21 +75,6 @@
             }
         };
     });
-
-    app.directive('validFile', function () {
-        return {
-            require: 'ngModel',
-            link: function (scope, el, attrs, ngModel) {
-                el.bind('change', function () {
-                    scope.$apply(function () {
-                        ngModel.$setViewValue(el.val());
-                        ngModel.$render();
-                    });
-                });
-            }
-        }
-    });
-
 
 
 

@@ -7,6 +7,7 @@ using System.Web.Http;
 using BusinessLayer.Service;
 using EntityClasses;
 
+
 namespace WebAPI.ApiControllers
 {
     public class UserController : ApiController
@@ -19,13 +20,32 @@ namespace WebAPI.ApiControllers
 
         [Route("api/User/Login")]
         [HttpPost]
-        public string Login(User user)
+        public int Login(User user)
         {
-            //string username = user.username;
-            //string password = user.password;
-            //return _UserService.LoginUser(username, password);
+            string username = user.username;
+            string password = user.password;
 
-            return "success";
+            return _UserService.Login(username, password);
+
+          
+        }
+
+        [Route("api/User/AddUser")]
+        [HttpPost]
+        public string AddUser(User user)
+        {
+            User userBAL = new User();
+            userBAL.username = user.username;
+            userBAL.password = user.password;
+            userBAL.userType = user.userType;
+            userBAL.fname = user.fname;
+            userBAL.lname = user.lname;
+
+
+
+            return _UserService.AddUser(userBAL);
+
+
         }
     }
 }

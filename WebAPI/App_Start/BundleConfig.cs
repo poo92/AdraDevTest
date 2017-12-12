@@ -27,7 +27,9 @@ namespace WebAPI
                       "~/ApiScripts/app-adradevtest.js",
                       "~/ApiScripts/Controllers/loginController.js",
                       "~/ApiScripts/Controllers/dashboardController.js",
-                      "~/ApiScripts/Services/dataService.js"
+                      "~/ApiScripts/Services/dataService.js",
+                      "~/ApiScripts/Services/sessionService.js",
+                      "~/ApiScripts/Services/loginService.js"
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

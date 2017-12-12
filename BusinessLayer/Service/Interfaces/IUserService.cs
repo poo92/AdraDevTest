@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntityClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,10 @@ namespace BusinessLayer.Service.Interfaces
 {
     interface IUserService
     {
-        string LoginUser(string username, string password);
+        int Login(string username, string password);
+
+        string AddUser(User user);
+        User ViewUser(string username);
+
     }
 }

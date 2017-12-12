@@ -36,7 +36,7 @@ namespace BusinessLayer.Service
             accountBalanceDAL.uid = accountBalance.uid;
 
             AccountBalance existingRecord = ViewBalance(accountBalance.year, accountBalance.month);
-            if(existingRecord != null)
+            if (existingRecord != null)
             {
                 uploadStatus = "Balances of this month already exsists in the database";
             }
@@ -44,7 +44,7 @@ namespace BusinessLayer.Service
             {
                 uploadStatus = _AccountBalanceRepo.UploadBalance(accountBalanceDAL);
             }
-            
+
             return uploadStatus;
 
         }
@@ -52,10 +52,10 @@ namespace BusinessLayer.Service
         // View balance of a month
         public AccountBalance ViewBalance(int year, int month)
         {
-            accountbalance accountBalance = _AccountBalanceRepo.ViewBalance(year,month);
+            accountbalance accountBalance = _AccountBalanceRepo.ViewBalance(year, month);
             AccountBalance accountBalanceResult = new AccountBalance();
 
-            if(accountBalance != null)
+            if (accountBalance != null)
             {
                 accountBalanceResult.year = accountBalance.year;
                 accountBalanceResult.month = accountBalance.month;
@@ -65,10 +65,11 @@ namespace BusinessLayer.Service
                 accountBalanceResult.marketing = (double)accountBalance.marketing;
                 accountBalanceResult.parking = (double)accountBalance.parking;
                 accountBalanceResult.uid = (int)accountBalance.uid;
-            }else
+            }
+            else
             {
                 accountBalanceResult.year = 0;
-                accountBalanceResult.month =0;
+                accountBalanceResult.month = 0;
                 accountBalanceResult.rnd = 0;
                 accountBalanceResult.canteen = 0;
                 accountBalanceResult.ceocar = 0;
@@ -77,9 +78,6 @@ namespace BusinessLayer.Service
                 accountBalanceResult.uid = 0;
             }
 
-
-
-            //            string result = accountBalanceresult.year.ToString() + accountBalanceresult.month.ToString() + accountBalanceresult.rnd.ToString() + accountBalanceresult.canteen.ToString() + accountBalanceresult.ceocar.ToString() + accountBalanceresult.marketing.ToString() + accountBalanceresult.parking.ToString();
             return accountBalanceResult;
         }
 
@@ -90,7 +88,7 @@ namespace BusinessLayer.Service
 
             List<AccountBalance> result = new List<AccountBalance>();    // final result
 
-            
+
             foreach (accountbalance accountBalance in resultList)
             {
                 AccountBalance accountBalaceBAL = new AccountBalance();
@@ -104,7 +102,7 @@ namespace BusinessLayer.Service
                 accountBalaceBAL.uid = (int)accountBalance.uid;
 
                 //               string accountBalaceBAL = accountBalance.year.ToString() + accountBalance.month.ToString() + accountBalance.rnd.ToString() + accountBalance.canteen.ToString() + accountBalance.ceocar.ToString() + accountBalance.marketing.ToString() + accountBalance.parking.ToString();
-                result.Add(accountBalaceBAL);               
+                result.Add(accountBalaceBAL);
             }
 
             return result;
@@ -112,17 +110,18 @@ namespace BusinessLayer.Service
 
         public double ViewCurrentBalance(string accountType)
         {
-            double balance=0.0;
+            double balance = 0.0;
             accountbalance accountBalance = _AccountBalanceRepo.ViewCurrentBalance();
-            
-            if(accountType == "rnd")
+
+            if (accountType == "rnd")
             {
                 balance = (double)accountBalance.rnd;
             }
-            else if(accountType == "canteen")
+            else if (accountType == "canteen")
             {
                 balance = (double)accountBalance.canteen;
-            }else if(accountType == "ceocar")
+            }
+            else if (accountType == "ceocar")
             {
                 balance = (double)accountBalance.ceocar;
             }

@@ -260,6 +260,8 @@
     <Content Include="ApiScripts\Controllers\dashboardController.js" />
     <Content Include="ApiScripts\Controllers\loginController.js" />
     <Content Include="ApiScripts\Services\dataService.js" />
+    <Content Include="ApiScripts\Services\loginService.js" />
+    <Content Include="ApiScripts\Services\sessionService.js" />
     <Content Include="ApiViews\AddUser.html" />
     <Content Include="ApiViews\AdminDashboard.html" />
     <Content Include="ApiViews\Login.html" />
