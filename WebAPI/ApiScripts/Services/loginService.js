@@ -13,10 +13,12 @@
                 if (response.data == 0) {
                     $window.alert("Invalid Credentials. Plese check again.")
                 } else if (response.data == 1) {
+                    sessionService.set("usertypeAdmin", true);
                     sessionService.set("loggedin", true);
                     sessionService.set("username", username);
                     $window.location.href = "#!AdminDashboard/";
                 } else if (response.data == 2) {
+                    sessionService.set("usertypeNormalUser", true);
                     sessionService.set("loggedin", true);
                     sessionService.set("username", username);
                     $window.location.href = "#!UserDashboard/";
@@ -31,6 +33,8 @@
         Logout: function () {
             sessionService.destroy("loggedin");
             sessionService.destroy("username");
+            sessionService.destroy("usertypeNormalUser");
+            sessionService.destroy("usertypeAdmin");
             $window.location.href = "/";
         },
 
@@ -38,7 +42,16 @@
             if (sessionService.get('loggedin')) {
                 return true;
             }
-
+        },
+        isAdmin: function () {
+            if (sessionService.get('usertypeAdmin')) {
+                return true;
+            }
+        },
+        isNormalUser: function () {
+            if (sessionService.get('usertypeNormalUser')) {
+                return true;
+            }
         }
 
 

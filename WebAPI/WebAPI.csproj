@@ -322,7 +322,6 @@
     <Content Include="ApiViews\ViewBalance.html" />
     <Content Include="ApiViews\ViewBalanceChart.html" />
     <Content Include="ApiViews\ViewBalanceResult.html" />
-    <Content Include="ApiViews\ViewBalanceSummaryResult.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />

@@ -14,6 +14,8 @@ app.config(['$routeProvider', function ($routeProvider) {
             "check": function (loginService, $location) {   //function to be resolved, accessFac and $location Injected
                 if (!loginService.isLoggedIn()) {    //check if the user has permission -- This happens before the page loads
                     $location.path('/');
+                } else if (!loginService.isAdmin() && loginService.isLoggedIn()) {
+                    $location.path('/UserDashboard');
                 }
             }
         }
@@ -25,6 +27,8 @@ app.config(['$routeProvider', function ($routeProvider) {
             "check": function (loginService, $location) {   //function to be resolved, accessFac and $location Injected
                 if (!loginService.isLoggedIn()) {    //check if the user has permission -- This happens before the page loads
                     $location.path('/');
+                } else if (!loginService.isNormalUser() && loginService.isLoggedIn()) {
+                    $location.path('/AdminDashboard');
                 }
             }
         }
