@@ -21,65 +21,76 @@ namespace WebAPI.ApiControllers
 
         public AccountBalanceController(IAccountBalanceService accountBalanceService)
         {
-            _AccountBalanceService = accountBalanceService;   
+            _AccountBalanceService = accountBalanceService;
         }
 
-        [Route("api/AccountBalance/UploadBalance")]                 // method to upload the account balances
+        // method to upload the account balances
+        [Route("api/AccountBalance/UploadBalance")]                
         [HttpPost]
-        //public List<string[]> UploadBalance(UserRequest userRequest)
         public string UploadBalance(UserRequest userRequest)
         {
-            string[] months = { "January","February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+            // array of moths to get index of the month
+            string[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
             string result = "";
 
+            // content of the file
             string fileContent = userRequest.fileContent;
+            // year of the uploaded fbalance file
             int year = userRequest.year;
 
+           
             char delimiterNewLine = '\n';
             char delimiterTab = '\t';
-            string[] lineSeperated = fileContent.Split(delimiterNewLine); // seperate line by line
             List<string[]> tabSeperated = new List<string[]>();
             double[] balances = new double[5];
 
-
+            // seperate the file content line by line
+            string[] lineSeperated = fileContent.Split(delimiterNewLine); 
 
             for (int i = 0; i < 6; i++)
             {
-                string[] splitted = lineSeperated[i].Split(delimiterTab);  // seperate by tab 
+                // seperate the line seperated content by tab
+                string[] splitted = lineSeperated[i].Split(delimiterTab);  
                 tabSeperated.Add(splitted);
             }
-            
+
+            // get the month from the file content
             string[] tabSeperatedArrayForMonth = tabSeperated[0];
             string month = tabSeperatedArrayForMonth[tabSeperatedArrayForMonth.Length - 1].Replace("\r", "");
             int monthIndex = 0;
 
+            // get the month index from the months array
             for (int i = 0; i < 12; i++)
-            {                
-            if (months[i].Equals(month))
+            {
+                if (months[i].Equals(month))
                 {
                     monthIndex = i + 1;
                 }
             }
 
-
+            // if valid month index is not found
             if (monthIndex == 0)
             {
                 result = "The month in the file is incorrect.Please check again";
             }
             else
             {
+                //if month is valid
                 for (int i = 1; i < 6; i++)
                 {
                     string[] tabSeperatedArray = tabSeperated[i];
-                    string balance = tabSeperatedArray[tabSeperatedArray.Length - 1].Replace(",", ""); // replace commas
+                    //get the balance from tab seperated content and replace commas in the balances
+                    string balance = tabSeperatedArray[tabSeperatedArray.Length - 1].Replace(",", ""); 
                     double balanceDouble;
                     try
                     {
-                        balanceDouble = Convert.ToDouble(balance);      // convert to double values
+                        // convert to double values and put to balances array
+                        balanceDouble = Convert.ToDouble(balance);     
                         balances[i - 1] = balanceDouble;
                     }
                     catch (FormatException)
                     {
+                        // if balance amounts ara incorrect
                         result = "Balance amounts are incorrect.Please check again.";
                     }
                     catch (OverflowException)
@@ -88,6 +99,7 @@ namespace WebAPI.ApiControllers
                     }
                 }
 
+                //Created object for BLL
                 AccountBalance accountBalance = new AccountBalance();
                 accountBalance.year = year;
                 accountBalance.month = monthIndex;
@@ -98,45 +110,50 @@ namespace WebAPI.ApiControllers
                 accountBalance.parking = balances[4];
                 accountBalance.uid = 1;
 
-
+                //call method in BLL
                 result = _AccountBalanceService.UploadBalance(accountBalance);
             }
-            return  result;
+            return result;
 
         }
 
-
-        [Route("api/AccountBalance/ViewBalance")]               // method to View  account balance of a month
+        // method to View  account balance of a month
+        [Route("api/AccountBalance/ViewBalance")]               
         [HttpPost]
         public AccountBalance ViewBalance(UserRequest userRequest)
         {
-
+            // get year and month 
             int year = userRequest.year;
             int month = userRequest.month;
 
+            //call method in BLL
             return _AccountBalanceService.ViewBalance(year, month);
         }
 
-
+        // method to View  account balance of a time period
         [Route("api/AccountBalance/ViewBalanceChart")]
         [HttpPost]
-        public List<AccountBalance> ViewBalanceChart(UserRequest userRequest)      // method to View  account balance of a time period
+        public List<AccountBalance> ViewBalanceChart(UserRequest userRequest)      
         {
-
+            // get variables from user request
             int startYear = userRequest.startYear;
             int startMonth = userRequest.startMonth;
             int endYear = userRequest.endYear;
             int endMonth = userRequest.endMonth;
 
+            //call method in BLL
             return _AccountBalanceService.ViewBalanceChart(startYear, startMonth, endYear, endMonth);
         }
 
+        // method to View current  account balance by account type
         [Route("api/AccountBalance/ViewCurrentBalance")]
         [HttpPost]
-        public double ViewCurrentBalance(UserRequest userRequest)      // method to View  account balance of a time period
+        public double[] ViewCurrentBalance(UserRequest userRequest)      
         {
+            // get the account type
             string accountType = userRequest.accountType;
 
+            //call method in BLL
             return _AccountBalanceService.ViewCurrentBalance(accountType);
         }
 

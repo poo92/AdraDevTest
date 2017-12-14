@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Service.Interfaces
 {
-    interface IUserService
+    public interface IUserService
     {
         int Login(string username, string password);
 

@@ -52,6 +52,7 @@ namespace DataAccessLibrary.Repository
 
         public accountbalance ViewCurrentBalance()
         {
+            // get the last row of the accountbalance table
             accountbalance maximum = DbContext.accountbalances.OrderByDescending(o => o.year).ThenByDescending(o => o.month).FirstOrDefault();
             return maximum;
 

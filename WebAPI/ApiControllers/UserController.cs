@@ -6,18 +6,19 @@ using System.Net.Http;
 using System.Web.Http;
 using BusinessLayer.Service;
 using EntityClasses;
-
+using BusinessLayer.Service.Interfaces;
 
 namespace WebAPI.ApiControllers
 {
     public class UserController : ApiController
     {
-        private UserService _UserService;   // create BL object
-        public UserController()
+        private IUserService _UserService;   // create BL object
+        public UserController(IUserService userService)
         {
-            _UserService = new UserService();   // initialize BL object
+            _UserService = userService;   // initialize BL object
         }
 
+        // user login method
         [Route("api/User/Login")]
         [HttpPost]
         public int Login(User user)
@@ -30,6 +31,7 @@ namespace WebAPI.ApiControllers
           
         }
 
+        //method to add user
         [Route("api/User/AddUser")]
         [HttpPost]
         public string AddUser(User user)

@@ -18,7 +18,7 @@ namespace DataAccessLibrary.Repository
         // add user method
         public string AddUser(user user)
         {
-
+            // add new user to the db
             DbContext.users.Add(user);
             int result = DbContext.SaveChanges();
 
@@ -32,24 +32,12 @@ namespace DataAccessLibrary.Repository
             }
         }
 
-
+        // method to get user by username
         public user ViewUser(string username)
         {
             user user = DbContext.users.Where(o => o.username == username).FirstOrDefault();
             return user;
         }
-
-        // Login method
-        //public string LoginUser(string username, string HashPassword)
-        //{
-            
-        //    //string hashedPassword = DbContext.Users.Where(o => o.UserName == username).Select(o => o.Password).FirstOrDefault().ToString();
-        //    //if (hashedPassword == HashPassword)
-        //    // {
-        //    //  return "Login Complete";
-        //    //}
-        //    //return "Login Fail";
-        //}
 
 
     }

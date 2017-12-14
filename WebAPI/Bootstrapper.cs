@@ -40,6 +40,8 @@ namespace WebAPI
             // e.g. container.RegisterType<ITestService, TestService>();            
             container.RegisterType<IAccountBalanceService, AccountBalanceService>();
             container.RegisterType<IAccountBalanceRepo, AccountBalanceRepo>();
+            container.RegisterType<IUserService, UserService>();
+            container.RegisterType<IUserRepo, UserRepo>();
             return container;
         }
     }

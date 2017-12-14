@@ -17,14 +17,15 @@ namespace BusinessLayer.Service
 
         public AccountBalanceService(IAccountBalanceRepo accountBalanceRepo)
         {
-            _AccountBalanceRepo = accountBalanceRepo;     // initialization
+            _AccountBalanceRepo = accountBalanceRepo;
         }
 
         // upload balance
         public string UploadBalance(AccountBalance accountBalance)
         {
-            string uploadStatus="initial";
+            string uploadStatus = "";
 
+            // creating a object for DAL and set values
             accountbalance accountBalanceDAL = new accountbalance();
             accountBalanceDAL.year = accountBalance.year;
             accountBalanceDAL.month = accountBalance.month;
@@ -35,16 +36,21 @@ namespace BusinessLayer.Service
             accountBalanceDAL.parking = accountBalance.parking;
             accountBalanceDAL.uid = accountBalance.uid;
 
+            // to check if balance is already in the database
             AccountBalance existingRecord = ViewBalance(accountBalance.year, accountBalance.month);
+
+            // if balances exsists
             if (existingRecord != null)
             {
                 uploadStatus = "Balances of this month already exsists in the database";
             }
             else
             {
+                // if balances doesn't exists call repository method to upload
                 uploadStatus = _AccountBalanceRepo.UploadBalance(accountBalanceDAL);
             }
 
+            // return the result
             return uploadStatus;
 
         }
@@ -52,17 +58,13 @@ namespace BusinessLayer.Service
         // View balance of a month
         public AccountBalance ViewBalance(int year, int month)
         {
+            // call viewBalance method 
             accountbalance accountBalance = _AccountBalanceRepo.ViewBalance(year, month);
-            AccountBalance accountBalanceResult = new AccountBalance();
-            accountBalanceResult.year = 0;
-            accountBalanceResult.month = 0;
-            accountBalanceResult.rnd = 0;
-            accountBalanceResult.canteen = 0;
-            accountBalanceResult.ceocar = 0;
-            accountBalanceResult.marketing = 0;
-            accountBalanceResult.parking = 0;
-            accountBalanceResult.uid = 0;
 
+            // create object for BLL
+            AccountBalance accountBalanceResult = new AccountBalance();
+
+            // if balance record exists
             if (accountBalance != null)
             {
                 accountBalanceResult.year = accountBalance.year;
@@ -74,7 +76,19 @@ namespace BusinessLayer.Service
                 accountBalanceResult.parking = (double)accountBalance.parking;
                 accountBalanceResult.uid = (int)accountBalance.uid;
             }
-            
+            else
+            {
+                // if balances ara not in the db
+                accountBalanceResult.year = 0;
+                accountBalanceResult.month = 0;
+                accountBalanceResult.rnd = 0;
+                accountBalanceResult.canteen = 0;
+                accountBalanceResult.ceocar = 0;
+                accountBalanceResult.marketing = 0;
+                accountBalanceResult.parking = 0;
+                accountBalanceResult.uid = 0;
+            }
+
 
             return accountBalanceResult;
         }
@@ -82,11 +96,13 @@ namespace BusinessLayer.Service
         // view balances of a time period
         public List<AccountBalance> ViewBalanceChart(int startYear, int startMonth, int endYear, int endMonth)
         {
+            // call repository method
             List<accountbalance> resultList = _AccountBalanceRepo.ViewBalanceChart(startYear, startMonth, endYear, endMonth);    // reuslt from the DB
 
-            List<AccountBalance> result = new List<AccountBalance>();    // final result
+            // create list for BLL
+            List<AccountBalance> result = new List<AccountBalance>();
 
-
+            // convert DAL objects into BLL objects
             foreach (accountbalance accountBalance in resultList)
             {
                 AccountBalance accountBalaceBAL = new AccountBalance();
@@ -99,39 +115,51 @@ namespace BusinessLayer.Service
                 accountBalaceBAL.parking = (double)accountBalance.parking;
                 accountBalaceBAL.uid = (int)accountBalance.uid;
 
-                //               string accountBalaceBAL = accountBalance.year.ToString() + accountBalance.month.ToString() + accountBalance.rnd.ToString() + accountBalance.canteen.ToString() + accountBalance.ceocar.ToString() + accountBalance.marketing.ToString() + accountBalance.parking.ToString();
                 result.Add(accountBalaceBAL);
             }
 
+            // return list of BLL objects
             return result;
         }
 
-        public double ViewCurrentBalance(string accountType)
+        // method to view current balance account typewise
+        public double[] ViewCurrentBalance(string accountType)
         {
-            double balance = 0.0;
+            double[] balance = new double[2];
+
+            // call repository method
             accountbalance accountBalance = _AccountBalanceRepo.ViewCurrentBalance();
 
-            if (accountType == "rnd")
+            // if at least one record is in the db records in the database         
+            if (accountBalance != null)
             {
-                balance = (double)accountBalance.rnd;
-            }
-            else if (accountType == "canteen")
+                balance[0] = 0;
+                if (accountType == "rnd")
+                {
+                    balance[1] = (double)accountBalance.rnd;
+                }
+                else if (accountType == "canteen")
+                {
+                    balance[1] = (double)accountBalance.canteen;
+                }
+                else if (accountType == "ceocar")
+                {
+                    balance[1] = (double)accountBalance.ceocar;
+                }
+                else if (accountType == "marketing")
+                {
+                    balance[1] = (double)accountBalance.marketing;
+                }
+                else if (accountType == "parking")
+                {
+                    balance[1] = (double)accountBalance.parking;
+                }
+            }else
             {
-                balance = (double)accountBalance.canteen;
-            }
-            else if (accountType == "ceocar")
-            {
-                balance = (double)accountBalance.ceocar;
-            }
-            else if (accountType == "marketing")
-            {
-                balance = (double)accountBalance.marketing;
-            }
-            else if (accountType == "parking")
-            {
-                balance = (double)accountBalance.parking;
+                balance[0] = 1;
             }
 
+            // return the result
             return balance;
         }
 

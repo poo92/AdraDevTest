@@ -5,20 +5,21 @@ using EntityClasses;
 using System.Security.Cryptography;
 using System.Text;
 using DataAccessLibrary;
-
+using DataAccessLibrary.Repository.Interfaces;
 
 namespace BusinessLayer.Service
 {
     public class UserService : IUserService
     {
         // create userRepo object
-        private UserRepo _UserRepo;
-        public UserService()
+        private IUserRepo _UserRepo;
+        public UserService(IUserRepo userRepo)
         {
-            _UserRepo = new UserRepo(); // Initialize userRepo object
+            _UserRepo = userRepo; // Initialize userRepo object
         }
 
-        //get salt string to hash password method
+
+        //generate salt string to hash password 
         private static string getSalt()
         {
             var random = new RNGCryptoServiceProvider();
@@ -42,10 +43,13 @@ namespace BusinessLayer.Service
         // get user by username method
         private User GetUser(string username)
         {
+            
             User userBAL = new User();
 
+            // repository method to get user by username
             user userDAL = _UserRepo.ViewUser(username);
 
+            // if user exsists in the db
             if (userDAL != null)
             {
                 userBAL.username = userDAL.username;
@@ -65,19 +69,23 @@ namespace BusinessLayer.Service
         {
             string result = "";
 
+            // check if user is already in the database
             User userExists = GetUser(userBAL.username);
 
+            // if user exists
             if (userExists.username != null)
             {
                 result = "This username is already in use. Please enter another username.";
             }
             else
             {
-                user userDAL = new user();
+                // if if user doesn't exist                
                 // hashing the password
                 string salt = getSalt();
                 string password = HashPassword(userBAL.password, salt);
 
+                // set values of DAL object
+                user userDAL = new user();
                 userDAL.username = userBAL.username;
                 userDAL.password = password;
                 userDAL.userType = userBAL.userType;
@@ -85,19 +93,21 @@ namespace BusinessLayer.Service
                 userDAL.lname = userBAL.lname;
                 userDAL.salt = salt;
 
-
+                // call DAL method
                 result = _UserRepo.AddUser(userDAL);
             }
 
             return result;
         }
 
+        // method to view user
         public User ViewUser(string username)
         {
             User userBAL = GetUser(username);
 
             if (userBAL != null)
             {
+                // need to hide password and the salt
                 userBAL.password = "";
                 userBAL.salt = "";
                 
@@ -107,28 +117,26 @@ namespace BusinessLayer.Service
         }
 
 
-
-
-
         // Login method
         public int Login(string username, string password)
         {
-            int userType = 0;
-            string[] p = new string[2];
+            int userType = 0;        
 
-
+            // to check if user is the db 
             User userExists = GetUser(username);
 
+            // if user exists
             if (userExists.username != null)
             {
+                // user's hashed password from db
                 string dbPassword = userExists.password;
+                // salt string from the db
                 string salt = userExists.salt;
 
+                // hash the password provided by the user along with the salt string
                 string hashedPassword = HashPassword(password, salt);
 
-                p[0] = dbPassword;
-                p[1] = hashedPassword;
-
+                // if two passwords match
                 if (dbPassword == hashedPassword)
                 {
                     userType = userExists.userType;
