@@ -21,14 +21,14 @@
                     sessionService.set("loggedin", true);
                     sessionService.set("username", username);
                     // redirect to the admin dashboard
-                    $window.location.href = "#!AdminDashboard/";
+                    $window.location.href = "#!AdminDashboard";
                 } else if (response.data == 2) {
                     //if user is a normal user
                     sessionService.set("usertypeNormalUser", true);
                     sessionService.set("loggedin", true);
                     sessionService.set("username", username);
                     // redirect to user dashboard
-                    $window.location.href = "#!UserDashboard/";
+                    $window.location.href = "#!UserDashboard";
                 } else {
                     $window.alert("Error occured. Plese try again later.")
                 }

@@ -58,4 +58,3 @@ app.directive('monthOptions', function () {
             '<option value=12 >December</option>'
     }
 });
-
