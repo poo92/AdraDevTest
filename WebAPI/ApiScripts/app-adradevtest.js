@@ -1,6 +1,8 @@
 ﻿"use strict"
+// fedine the angular app
 var app = angular.module('adraDevTest', ['ngRoute'])
 
+// configure the routes
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
     .when("/", {
@@ -21,7 +23,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         }
     })
     .when("/UserDashboard", {
-        controller: "dashboardController",
+        controller: "userDashboardController",
         templateUrl: "../ApiViews/UserDashboard.html",
         resolve: {
             "check": function (loginService, $location) {   //function to be resolved, accessFac and $location Injected
@@ -44,7 +46,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 
 
-
+// months dropdown
 app.directive('monthOptions', function () {
     return {
         template:
@@ -64,16 +66,3 @@ app.directive('monthOptions', function () {
     }
 });
 
-
-app.directive('hcChart', function () {
-    return {
-        restrict: 'E',
-        template: '<div></div>',
-        scope: {
-            options: '='
-        },
-        link: function (scope, element) {
-            Highcharts.chart(element[0], scope.options);
-        }
-    };
-});

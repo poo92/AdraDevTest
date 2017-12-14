@@ -25,6 +25,7 @@ namespace WebAPI
                       "~/ApiScripts/app-adradevtest.js",
                       "~/ApiScripts/Controllers/loginController.js",
                       "~/ApiScripts/Controllers/dashboardController.js",
+                      "~/ApiScripts/Controllers/userDashboardController.js",
                       "~/ApiScripts/Services/dataService.js",
                       "~/ApiScripts/Services/sessionService.js",
                       "~/ApiScripts/Services/loginService.js"

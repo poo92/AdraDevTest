@@ -1,12 +1,15 @@
 ﻿angular.module('adraDevTest')
 .controller('dashboardController', ['$scope', '$http', '$window', '$location', '$timeout', 'loginService', 'sessionService', function ($scope, $http, $window, $location, $timeout, loginService, sessionService) {
+    // variables which control visibility of modals which shows results
     $scope.showViewBalanceModal = false;
     $scope.showViewBalanceChartModal = false;
-
+  
+    // username of logged user
     $scope.username = sessionService.get("username");
+    // months array
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    $scope.isVisibleCurrentBalancePanel = false;
-
+   
+    // load relevent page according to button press
     $scope.HandleButtonPress = function (event) {
         buttonid = event.target.id;
         if (buttonid == "uploadBalance") {
@@ -27,6 +30,8 @@
         }
     }
 
+    
+    // add user function
     $scope.AddUser = function () {
         var user = '{username:"' + $scope.username + '",password: "' + $scope.password + '",userType: "' + $scope.userType + '",fname: "' + $scope.fname + '",lname: "' + $scope.lname + '"}';
         $http({
@@ -41,23 +46,28 @@
                 $window.location.href = "#!AdminDashboard/";
             }
         }, function OnError(Error) {
-            console.log(Error)
+            alert("An error occured. Please try again later.")
         })
     }
 
+    // upload account balance
     $scope.UploadBalance = function () {
+        // get year
         var year = document.getElementById("year").value;
+        // get file content
         var file = document.getElementById("file").files[0];
 
 
         if (file) {
+            // extention if the file
             var extention = file.name.split('.').pop();
+            // if text file
             if (extention == "txt") {
                 var reader = new FileReader();
                 reader.readAsText(file, "UTF-8");
-                reader.onload = function (evt) {
-                    //console.log(evt.target.result);
+                reader.onload = function (evt) {                   
                     var userRequest = '{year:"' + year + '",fileContent: "' + evt.target.result + '"}';
+                    // call controller method
                     $http({
                         method: "POST",
                         url: "../api/AccountBalance/UploadBalance",
@@ -73,7 +83,7 @@
                     })
                 }
                 reader.onerror = function (evt) {
-                    console.log("error reading file");
+                    $window.alert("An error occured while reading file. Please try again later.");
                 }
             } else if (extention == "xlsx" || extention == "xls") {
                 $window.alert("Not yet developed for excel files");
@@ -108,20 +118,18 @@
             }
 
         } else {
+            // if file is not selected
             $window.alert("Please upload a file");
         }
     }
 
 
-
-
-
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
-
+    // view balance of a month
     $scope.ViewBalance = function () {
+        // get the month
         var month = parseInt($scope.month);
         var UserRequest = '{year: "' + $scope.year + '" ,month:"' + month + '" }';
+        // call controller mrthod
         $http({
             method: "POST",
             url: "../api/AccountBalance/ViewBalance",
@@ -130,13 +138,16 @@
             headers: { "Content-Type": "application/json" }
         }).then(function OnSuccess(response) {
             if (response.data.year == 0) {
+                // if balance for the selected month is not in db
                 $window.alert("No account balances are available for this month");
                 $window.location.href = "#!AdminDashboard/";
             } else {
+                // set response to scope variable
                 $scope.$parent.accountBalance = response.data;
+                // select relevent month from months array
                 $scope.$parent.accountBalance.month = months[response.data.month - 1];
+                // make the result modal visible
                 $scope.showViewBalanceModal = true;
-
             }
 
         }, function OnError(Error) {
@@ -144,34 +155,41 @@
         }
         )
     }
+    // handle the close button of the modal popup
     $scope.HandleViewBalanceModal = function () {
         $scope.showViewBalanceModal = true;
         $window.location.href = "#!AdminDashboard/";
     }
 
+    // view the balances of a time period
     $scope.ViewBalanceChart = function () {
 
+        // get the variables
         var startMonth = parseInt($scope.startMonth);
         var endMonth = parseInt($scope.endMonth);
         var startYear = $scope.startYear;
         var endYear = $scope.endYear;
 
-        if (startYear > endYear) {
+        // check for validity of the parameteres
+        if (startYear > endYear) {      
             $window.alert(" Start Year must be eqal or less than the End Year. \n Please enter valid values.");
         } else if (startYear == endYear) {
             if (startMonth > endMonth) {
                 $window.alert(" Start Month must be eqal or less than End Month. \n Please enter valid values.");
             } else {
+                // startYear == endYear && startMonth <= endMonth
                 this.getChart(startYear, startMonth, endYear, endMonth);
             }
         } else {
+            // startYear < endYear
             this.getChart(startYear, startMonth, endYear, endMonth);
         }
     }
 
-
+    // function to generate the chart
     $scope.getChart = function (startYear, startMonth, endYear, endMonth) {
         var UserRequest = '{startYear: "' + startYear + '" ,startMonth:"' + startMonth + '",endYear:"' + endYear + '",endMonth:"' + endMonth + '" }';
+        // call controller method
         $http({
             method: "POST",
             url: "../api/AccountBalance/ViewBalanceChart",
@@ -180,8 +198,8 @@
             headers: { "Content-Type": "application/json" }
         }).then(function OnSuccess(response) {
 
+            // if balances are available for the time period
             if (!(response.data.length == 0)) {
-
                 $scope.$parent.year = [];
                 $scope.$parent.month = [];
                 $scope.$parent.rnd = [];
@@ -190,6 +208,7 @@
                 $scope.$parent.marketing = [];
                 $scope.$parent.parking = [];
 
+                // generate the balance arrays for data points of the chart
                 angular.forEach(response.data, function (value) {
                     $scope.$parent.year.push(value.year);
                     $scope.$parent.month.push(months[value.month - 1]);
@@ -199,9 +218,8 @@
                     $scope.$parent.marketing.push(value.marketing);
                     $scope.$parent.parking.push(value.parking);
                 });
-
-                console.log($scope.$parent.month);
-
+                              
+                // create the chart using balance arrays
                 Highcharts.chart('chartContainer', {
 
                     title: {
@@ -229,16 +247,6 @@
                         align: 'right',
                         verticalAlign: 'middle'
                     },
-
-                    //plotOptions: {
-                    //    series: {
-                    //        label: {
-                    //            connectorAllowed: false
-                    //        },
-                    //        pointStart: 2010
-                    //    }
-                    //},
-
                     series: [{
                         name: 'R&D',
                         data: $scope.$parent.rnd
@@ -272,60 +280,24 @@
                     }
 
                 });
+                // make the chart visible
                 $scope.showViewBalanceChartModal = true;
 
             } else {
+                // if account balances are not available
                 $window.alert("No account balances are available for this time period");
                 
             }
-
-
-
         }, function OnError(Error) {
             console.log(Error)
         })
     }
 
+    // handle the close button press of chart modal
     $scope.HandleViewBalanceChartModal = function () {
         $scope.showViewBalanceChartModal = true;
         $window.location.href = "#!AdminDashboard/";
 
     }
-
-
-    $scope.ViewCurrentBalance = function () {
-        var UserRequest = '{accountType: "' + $scope.accountType + '"}';
-        $http({
-            method: "POST",
-            url: "../api/AccountBalance/ViewCurrentBalance",
-            dataType: 'json',
-            data: UserRequest,
-            headers: { "Content-Type": "application/json" }
-        }).then(function OnSuccess(response) {
-            console.log(response.data);
-            isEmptyDb = response.data[0];
-            if (isEmptyDb == 1) {
-                $window.alert("no account balances are uploaded yet");
-            } else {
-                $scope.currentBalance = response.data[1];
-                $scope.isVisibleCurrentBalancePanel = true;
-            }
-
-
-        }, function OnError(Error) {
-            console.log(Error)
-        })
-
-    }
-
-    $scope.Logout = function () {
-        loginService.Logout();
-    }
-
-
-
-
-
-
 
 }]);
