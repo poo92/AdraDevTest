@@ -14,7 +14,7 @@
                     $window.alert("Invalid Credentials. Plese check again.")
                 } else if (response.data == 1) {
                     sessionService.set("loggedin", true);
-                    sessionService.set("username",username);
+                    sessionService.set("username", username);
                     $window.location.href = "#!AdminDashboard/";
                 } else if (response.data == 2) {
                     sessionService.set("loggedin", true);
