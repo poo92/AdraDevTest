@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict"
 
-    var app = angular.module('adraDevTest', ["ngRoute"])
+    var app = angular.module('adraDevTest', ['ngRoute','ui.bootstrap'])
 
     app.config(function ($routeProvider) {
         $routeProvider

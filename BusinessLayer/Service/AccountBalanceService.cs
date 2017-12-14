@@ -15,15 +15,15 @@ namespace BusinessLayer.Service
     {
         private IAccountBalanceRepo _AccountBalanceRepo;         // instance of a AccountBalanceRepo class on DAL
 
-        public AccountBalanceService()
+        public AccountBalanceService(IAccountBalanceRepo accountBalanceRepo)
         {
-            _AccountBalanceRepo = new AccountBalanceRepo();     // initialization
+            _AccountBalanceRepo = accountBalanceRepo;     // initialization
         }
 
         // upload balance
         public string UploadBalance(AccountBalance accountBalance)
         {
-            string uploadStatus;
+            string uploadStatus="initial";
 
             accountbalance accountBalanceDAL = new accountbalance();
             accountBalanceDAL.year = accountBalance.year;
@@ -54,6 +54,14 @@ namespace BusinessLayer.Service
         {
             accountbalance accountBalance = _AccountBalanceRepo.ViewBalance(year, month);
             AccountBalance accountBalanceResult = new AccountBalance();
+            accountBalanceResult.year = 0;
+            accountBalanceResult.month = 0;
+            accountBalanceResult.rnd = 0;
+            accountBalanceResult.canteen = 0;
+            accountBalanceResult.ceocar = 0;
+            accountBalanceResult.marketing = 0;
+            accountBalanceResult.parking = 0;
+            accountBalanceResult.uid = 0;
 
             if (accountBalance != null)
             {
@@ -66,17 +74,7 @@ namespace BusinessLayer.Service
                 accountBalanceResult.parking = (double)accountBalance.parking;
                 accountBalanceResult.uid = (int)accountBalance.uid;
             }
-            else
-            {
-                accountBalanceResult.year = 0;
-                accountBalanceResult.month = 0;
-                accountBalanceResult.rnd = 0;
-                accountBalanceResult.canteen = 0;
-                accountBalanceResult.ceocar = 0;
-                accountBalanceResult.marketing = 0;
-                accountBalanceResult.parking = 0;
-                accountBalanceResult.uid = 0;
-            }
+            
 
             return accountBalanceResult;
         }
@@ -135,6 +133,13 @@ namespace BusinessLayer.Service
             }
 
             return balance;
+        }
+
+        public string strconcat(string str)
+        {
+            string result = "";
+            result = "pooh" + str;
+            return result;
         }
 
 

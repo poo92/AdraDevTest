@@ -22,7 +22,7 @@ namespace WebAPI
                       "~/Scripts/angular.js",
                       "~/Scripts/angular-route.js",
                       "~/Scripts/highcharts/highcharts.js",
-                       "~/Scripts/ng-file-upload.js",
+                      "~/Scripts/angular-ui/ui-bootstrap-tpls.min.js",
                       "~/Scripts/highcharts/modules/exporting.js",
                       "~/ApiScripts/app-adradevtest.js",
                       "~/ApiScripts/Controllers/loginController.js",
@@ -34,7 +34,9 @@ namespace WebAPI
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/ui-bootstrap-csp.css"
+                      ));
         }
     }
 }

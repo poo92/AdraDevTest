@@ -4,23 +4,24 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using BusinessLayer.Service;
+using BusinessLayer.Service.Interfaces;
 using Newtonsoft.Json.Linq;     // json.NET
 using EntityClasses;
 using WebAPI.ApiModels;
 using System.IO;
 using System.Net.Http;
 using System.Web.Http;
+using BusinessLayer.Service;
 
 namespace WebAPI.ApiControllers
 {
     public class AccountBalanceController : ApiController
     {
-        private AccountBalanceService _AccountBalanceService; // create object of AccountBalanceService in BL
+        private IAccountBalanceService _AccountBalanceService; // create object of AccountBalanceService in BL
 
-        public AccountBalanceController()
+        public AccountBalanceController(IAccountBalanceService accountBalanceService)
         {
-            _AccountBalanceService = new AccountBalanceService();   // initialization 
+            _AccountBalanceService = accountBalanceService;   
         }
 
         [Route("api/AccountBalance/UploadBalance")]                 // method to upload the account balances

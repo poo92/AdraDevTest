@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Service.Interfaces
 {
-    interface IAccountBalanceService
+    public interface IAccountBalanceService
     {
         // upload balance
         string UploadBalance(AccountBalance accountbalance);
@@ -17,5 +17,6 @@ namespace BusinessLayer.Service.Interfaces
         List<AccountBalance> ViewBalanceChart(int startYear, int startMonth, int endYear, int endMonth);
 
         double ViewCurrentBalance(string accountType);
+        string strconcat(string str);
     }
 }
