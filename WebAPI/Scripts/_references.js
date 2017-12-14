@@ -2,7 +2,6 @@
 /// <reference path="../apiscripts/app-adradevtest.js" />
 /// <reference path="../apiscripts/controllers/dashboardcontroller.js" />
 /// <reference path="../apiscripts/controllers/logincontroller.js" />
-/// <reference path="../apiscripts/controllers/userdashboardcontroller.js" />
 /// <reference path="../apiscripts/services/dataservice.js" />
 /// <reference path="../apiscripts/services/loginservice.js" />
 /// <reference path="../apiscripts/services/sessionservice.js" />

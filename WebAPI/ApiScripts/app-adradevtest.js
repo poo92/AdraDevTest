@@ -7,11 +7,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
     .when("/", {
         controller: "loginController",
-        templateUrl: "../ApiViews/Login.html"
+        templateUrl: "ApiViews/Login.html"
     })
     .when("/AdminDashboard/", {
         controller: "dashboardController",
-        templateUrl: "../ApiViews/AdminDashboard.html",
+        templateUrl: "ApiViews/AdminDashboard.html",
         resolve: {
             "check": function (loginService, $location) {   //function to be resolved, accessFac and $location Injected
                 if (!loginService.isLoggedIn()) {    //check if the user has permission -- This happens before the page loads
@@ -23,8 +23,8 @@ app.config(['$routeProvider', function ($routeProvider) {
         }
     })
     .when("/UserDashboard", {
-        controller: "userDashboardController",
-        templateUrl: "../ApiViews/UserDashboard.html",
+        controller: "dashboardController",
+        templateUrl: "ApiViews/UserDashboard.html",
         resolve: {
             "check": function (loginService, $location) {   //function to be resolved, accessFac and $location Injected
                 if (!loginService.isLoggedIn()) {    //check if the user has permission -- This happens before the page loads
@@ -34,13 +34,6 @@ app.config(['$routeProvider', function ($routeProvider) {
                 }
             }
         }
-    })
-    .when("/ViewAccountBalances", {
-        controller: "dashboardController",
-        templateUrl: "../ApiViews/ViewBalanceResult.html"
-    })
-    .when("/ViewAccountBalancesSummary", {
-        templateUrl: "../ApiViews/ViewBalanceSummaryResult.html"
     }).otherwise({ redirect: "/" })
 }]);
 

@@ -1,5 +1,5 @@
 ﻿angular.module('adraDevTest')
-.factory('loginService', ['$http', '$window', '$location', 'sessionService', function ($http, $window, $location, sessionService) {
+.service('loginService', ['$http', '$window', '$location', 'sessionService', function ($http, $window, $location, sessionService) {
     return {
         // login function
         Login: function (username, password) {

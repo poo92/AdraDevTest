@@ -25,7 +25,7 @@
                     <form name="viewCurrentBalance">
                         <div class="form-group">
                             <label class="col-sm-2 text-right" for="year">Account Type <span class="required">*</span></label>
-                            <select class="form-control col-sm-2" name="accountType" id="accountType" ng-model="accountType">
+                            <select class="form-control col-sm-2" name="accountType" id="accountType" ng-model="accountType" required>
                                 <option disabled selected value> -- select Account Type-- </option>
                                 <option value="rnd">R&D</option>
                                 <option value="canteen">Canteen</option>
@@ -37,7 +37,7 @@
 
                         <div class="row">
                             <div class="form-group">
-                                <button class="btn btn-primary col-sm-1 col-sm-offset-9" type="submit" ng-click="ViewCurrentBalance()" ng-disabled="viewCurrentBalance.accountType.$pristine"> View</button>
+                                <button class="btn btn-primary col-sm-1 col-sm-offset-9" type="submit" ng-click="ViewCurrentBalance()" ng-disabled="!accountType || accountType.length == 0 "> View</button>
                             </div>
                         </div>
 

@@ -311,7 +311,6 @@
     <Content Include="ApiScripts\app-adradevtest.js" />
     <Content Include="ApiScripts\Controllers\dashboardController.js" />
     <Content Include="ApiScripts\Controllers\loginController.js" />
-    <Content Include="ApiScripts\Controllers\userDashboardController.js" />
     <Content Include="ApiScripts\Services\dataService.js" />
     <Content Include="ApiScripts\Services\loginService.js" />
     <Content Include="ApiScripts\Services\sessionService.js" />
