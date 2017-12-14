@@ -1,8 +1,8 @@
 ﻿angular.module('adraDevTest')
-.controller('loginController', function ($scope, $http, loginService) {
+.controller('loginController', ['$scope', '$http', 'loginService', function ($scope, $http, loginService) {
 
     $scope.Login = function () {        
         loginService.Login($scope.username,$scope.password);
     }
     
-});
+}]);

@@ -3,7 +3,7 @@
 
     var app = angular.module('adraDevTest', ['ngRoute'])
 
-    app.config(function ($routeProvider) {
+app.config(['$routeProvider',function ($routeProvider) {
         $routeProvider
         .when("/", {
             controller: "loginController",
@@ -38,7 +38,7 @@
         .when("/ViewAccountBalancesSummary", {
             templateUrl: "../ApiViews/ViewBalanceSummaryResult.html"
         }).otherwise({ redirect: "/" })
-    });
+    }]);
 
 
 

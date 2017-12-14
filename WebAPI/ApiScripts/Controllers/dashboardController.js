@@ -1,5 +1,5 @@
 ﻿angular.module('adraDevTest')
-.controller('dashboardController', function ($scope, $http, $window, $location, $timeout, loginService, sessionService) {
+.controller('dashboardController', ['$scope', '$http', '$window', '$location', '$timeout', 'loginService', 'sessionService',function ($scope, $http, $window, $location, $timeout, loginService, sessionService) {
     $scope.showViewBalanceModal = false;
     $scope.showViewBalanceChartModal = false;
 
@@ -298,4 +298,4 @@
 
 
 
-});
+}]);
