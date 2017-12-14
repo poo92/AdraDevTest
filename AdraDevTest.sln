@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdraDevTest", "AdraDevTest\AdraDevTest.csproj", "{E08396B2-98D1-4AC7-A182-75D492F15AB4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{568B111D-EC52-40A7-944E-0125FE967019}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{BC4C7F62-9474-4377-BF54-DA7C89B52FCC}"
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E08396B2-98D1-4AC7-A182-75D492F15AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E08396B2-98D1-4AC7-A182-75D492F15AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E08396B2-98D1-4AC7-A182-75D492F15AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E08396B2-98D1-4AC7-A182-75D492F15AB4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{568B111D-EC52-40A7-944E-0125FE967019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{568B111D-EC52-40A7-944E-0125FE967019}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{568B111D-EC52-40A7-944E-0125FE967019}.Release|Any CPU.ActiveCfg = Release|Any CPU

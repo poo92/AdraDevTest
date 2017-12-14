@@ -1,7 +1,7 @@
-﻿(function () {
-    "use strict"
+﻿//(function () {
+//    "use strict"
 
-    var app = angular.module('adraDevTest', ['ngRoute','ui.bootstrap'])
+    var app = angular.module('adraDevTest', ['ngRoute'])
 
     app.config(function ($routeProvider) {
         $routeProvider
@@ -78,4 +78,4 @@
 
 
 
-})();
+//})();

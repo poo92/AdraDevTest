@@ -8,6 +8,7 @@ namespace WebAPI
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -20,10 +21,7 @@ namespace WebAPI
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/angular.js",
-                      "~/Scripts/angular-route.js",
-                      "~/Scripts/highcharts/highcharts.js",
-                      "~/Scripts/angular-ui/ui-bootstrap-tpls.min.js",
-                      "~/Scripts/highcharts/modules/exporting.js",
+                      "~/Scripts/angular-route.js",                      
                       "~/ApiScripts/app-adradevtest.js",
                       "~/ApiScripts/Controllers/loginController.js",
                       "~/ApiScripts/Controllers/dashboardController.js",
@@ -34,9 +32,10 @@ namespace WebAPI
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/ui-bootstrap-csp.css"
+                      "~/Content/site.css"                      
                       ));
+
+            //BundleTable.EnableOptimizations = true;
         }
     }
 }
