@@ -8,7 +8,7 @@
                     <div class="form-group">
                         <label for="month" class="col-sm-2 col-sm-offset-1 text-right">Username <span class="required">*</span></label>
                         <select class="form-control col-sm-2" name="usernameDelete" id="usernameDelete" ng-model="$parent.usernameDelete" ng-options="x for x in usernameFiltered">
-                            <option value="" selected="selected">Select user</option>
+                            <option disabled selected value> -- select a  user -- </option>'
                         </select>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <button class="btn btn-primary col-sm-1 col-sm-offset-9" type="submit" ng-click="ShowDeletePopup()" > Delete</button>
+                        <button class="btn btn-primary col-sm-1 col-sm-offset-9" type="submit" ng-click="ShowDeletePopup()" ng-disabled="!$parent.usernameDelete || $parent.usernameDelete.length == 0"> Delete</button>
                     </div>
                 </div>
 

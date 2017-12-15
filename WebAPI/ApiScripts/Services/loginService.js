@@ -7,7 +7,7 @@
             // call controller method
             return $http({
                 method: "POST",
-                url: "../api/User/login",
+                url: "/api/User/login",
                 dataType: 'json',
                 data: user,
                 headers: { "Content-Type": "application/json" }

@@ -33,6 +33,7 @@
             $scope.viewPage = "../ApiViews/AddUser.html";
 
         } else if (buttonid == "deleteUser") {
+            $scope.usernameFiltered = [];
             this.GetAllUsers();
             $scope.viewPage = "../ApiViews/DeleteUser.html";
         }
@@ -44,7 +45,7 @@
         var user = '{username:"' + $scope.username + '",password: "' + $scope.password + '",userType: "' + $scope.userType + '",fname: "' + $scope.fname + '",lname: "' + $scope.lname + '"}';
         $http({
             method: "POST",
-            url: "../api/User/AddUser",
+            url: "/api/User/AddUser",
             dataType: 'json',
             data: user,
             headers: { "Content-Type": "application/json" }
@@ -61,7 +62,7 @@
     $scope.GetAllUsers = function () {       
         $http({
             method: "POST",
-            url: "../api/User/GetAllUSers",
+            url: "/api/User/GetAllUSers",
             dataType: 'json',            
             headers: { "Content-Type": "application/json" }
         }).then(function OnSuccess(response) {            
@@ -94,7 +95,7 @@
         var user = '{username:"' + $scope.usernameDelete + '"}';
         $http({
             method: "POST",
-            url: "../api/User/DeleteUser",
+            url: "/api/User/DeleteUser",
             dataType: 'json',
             data: user,
             headers: { "Content-Type": "application/json" }
@@ -130,7 +131,7 @@
                     // call controller method
                     $http({
                         method: "POST",
-                        url: "../api/AccountBalance/UploadBalance",
+                        url: "/api/AccountBalance/UploadBalance",
                         dataType: 'json',
                         data: userRequest,
                         headers: { "Content-Type": "application/json" }
@@ -192,7 +193,7 @@
         // call controller mrthod
         $http({
             method: "POST",
-            url: "../api/AccountBalance/ViewBalance",
+            url: "/api/AccountBalance/ViewBalance",
             dataType: 'json',
             data: UserRequest,
             headers: { "Content-Type": "application/json" }
@@ -252,7 +253,7 @@
         // call controller method
         $http({
             method: "POST",
-            url: "../api/AccountBalance/ViewBalanceChart",
+            url: "/api/AccountBalance/ViewBalanceChart",
             dataType: 'json',
             data: UserRequest,
             headers: { "Content-Type": "application/json" }
@@ -368,7 +369,7 @@
         // call the controller method
         $http({
             method: "POST",
-            url: "../api/AccountBalance/ViewCurrentBalance",
+            url: "/api/AccountBalance/ViewCurrentBalance",
             dataType: 'json',
             data: UserRequest,
             headers: { "Content-Type": "application/json" }
