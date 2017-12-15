@@ -28,7 +28,7 @@ namespace WebAPI.ApiControllers
 
             return _UserService.Login(username, password);
 
-          
+
         }
 
         //method to add user
@@ -42,12 +42,21 @@ namespace WebAPI.ApiControllers
             userBAL.userType = user.userType;
             userBAL.fname = user.fname;
             userBAL.lname = user.lname;
-
-
-
             return _UserService.AddUser(userBAL);
+        }
 
+        [Route("api/User/GetAllUSers")]
+        [HttpPost]
+        public string[] GetAllUsers()
+        {
+            return _UserService.GetAllUsers();
+        }
 
+        [Route("api/User/DeleteUser")]
+        [HttpPost]
+        public string DeleteUser(User user)
+        {            
+            return _UserService.DeleteUser(user);
         }
     }
 }

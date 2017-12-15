@@ -18,5 +18,6 @@ namespace DataAccessLibrary.Repository.Interfaces
         List<accountbalance> ViewBalanceChart(int startYear, int startMonth, int endYear, int endMonth);
 
         accountbalance ViewCurrentBalance();
+        string DeleteAccountBalance(int year, int month);
     }
 }

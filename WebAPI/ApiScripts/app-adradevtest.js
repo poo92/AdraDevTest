@@ -3,7 +3,7 @@
 var app = angular.module('adraDevTest', ['ngRoute'])
 
 // configure the routes
-app.config(['$routeProvider', function ($routeProvider) {
+app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
     .when("/", {
         controller: "loginController",
@@ -35,6 +35,9 @@ app.config(['$routeProvider', function ($routeProvider) {
             }
         }
     }).otherwise({ redirect: "/" })
+
+    //$locationProvider.html5Mode(true);
+
 }]);
 
 

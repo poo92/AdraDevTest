@@ -59,7 +59,21 @@ namespace DataAccessLibrary.Repository
 
         }
 
+        public string DeleteAccountBalance(int year, int month)
+        {
+            accountbalance accountToDelete = DbContext.accountbalances.Where(o => o.year == year && o.month == month).FirstOrDefault();
+            DbContext.Entry(accountToDelete).State = System.Data.Entity.EntityState.Deleted;
+            int result = DbContext.SaveChanges();
 
+            if(result != 0)
+            {
+                return "deleted successfully";
+            }
+            else
+            {
+                return "Error occured while deleting";
+            }
+        }
 
     }
 }

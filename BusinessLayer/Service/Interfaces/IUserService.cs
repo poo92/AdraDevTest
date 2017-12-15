@@ -13,6 +13,9 @@ namespace BusinessLayer.Service.Interfaces
 
         string AddUser(User user);
         User ViewUser(string username);
+        string DeleteUser(User user);
 
+        string[] GetAllUsers();
+        
     }
 }

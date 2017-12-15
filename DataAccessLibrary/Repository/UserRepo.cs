@@ -39,6 +39,26 @@ namespace DataAccessLibrary.Repository
             return user;
         }
 
+        public string DeleteUser(string username)
+        {
+            user userToDelete = DbContext.users.Where(o => o.username == username).FirstOrDefault();
+            DbContext.Entry(userToDelete).State = System.Data.Entity.EntityState.Deleted;
+            int result = DbContext.SaveChanges();
 
+            if (result != 0)
+            {
+                return "deleted successfully";
+            }
+            else
+            {
+                return "Error occured while deleting";
+            }
+        }
+
+       public  List<user> GetAllUsers()
+        {
+            List<user> result = DbContext.users.ToList();
+            return result;
+        }
     }
 }

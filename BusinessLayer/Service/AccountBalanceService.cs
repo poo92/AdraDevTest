@@ -74,7 +74,13 @@ namespace BusinessLayer.Service
                 accountBalanceResult.ceocar = (double)accountBalance.ceocar;
                 accountBalanceResult.marketing = (double)accountBalance.marketing;
                 accountBalanceResult.parking = (double)accountBalance.parking;
-                accountBalanceResult.uid = (int)accountBalance.uid;
+                if(accountBalance.uid != null){
+                    accountBalanceResult.uid = (int)accountBalance.uid;
+                }else
+                {
+                    accountBalanceResult.uid = 0;
+                }
+               
             }
             else
             {
@@ -101,22 +107,30 @@ namespace BusinessLayer.Service
 
             // create list for BLL
             List<AccountBalance> result = new List<AccountBalance>();
-
+            
             // convert DAL objects into BLL objects
-            foreach (accountbalance accountBalance in resultList)
+            if(resultList != null)
             {
-                AccountBalance accountBalaceBAL = new AccountBalance();
-                accountBalaceBAL.year = accountBalance.year;
-                accountBalaceBAL.month = accountBalance.month;
-                accountBalaceBAL.rnd = (double)accountBalance.rnd;
-                accountBalaceBAL.canteen = (double)accountBalance.canteen;
-                accountBalaceBAL.ceocar = (double)accountBalance.ceocar;
-                accountBalaceBAL.marketing = (double)accountBalance.marketing;
-                accountBalaceBAL.parking = (double)accountBalance.parking;
-                accountBalaceBAL.uid = (int)accountBalance.uid;
+                foreach (accountbalance accountBalance in resultList)
+                {
+                    AccountBalance accountBalaceBAL = new AccountBalance();
+                    accountBalaceBAL.year = accountBalance.year;
+                    accountBalaceBAL.month = accountBalance.month;
+                    accountBalaceBAL.rnd = (double)accountBalance.rnd;
+                    accountBalaceBAL.canteen = (double)accountBalance.canteen;
+                    accountBalaceBAL.ceocar = (double)accountBalance.ceocar;
+                    accountBalaceBAL.marketing = (double)accountBalance.marketing;
+                    accountBalaceBAL.parking = (double)accountBalance.parking;
+                    if (accountBalance.uid != null)
+                    {
+                        accountBalaceBAL.uid = (int)accountBalance.uid;
 
-                result.Add(accountBalaceBAL);
+                    }
+
+                    result.Add(accountBalaceBAL);
+                }
             }
+         
 
             // return list of BLL objects
             return result;
@@ -163,13 +177,7 @@ namespace BusinessLayer.Service
             return balance;
         }
 
-        public string strconcat(string str)
-        {
-            string result = "";
-            result = "pooh" + str;
-            return result;
-        }
-
+  
 
     }
 }

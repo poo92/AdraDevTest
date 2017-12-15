@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using DataAccessLibrary;
 using DataAccessLibrary.Repository.Interfaces;
+using System.Collections.Generic;
 
 namespace BusinessLayer.Service
 {
@@ -43,7 +44,7 @@ namespace BusinessLayer.Service
         // get user by username method
         private User GetUser(string username)
         {
-            
+
             User userBAL = new User();
 
             // repository method to get user by username
@@ -110,7 +111,7 @@ namespace BusinessLayer.Service
                 // need to hide password and the salt
                 userBAL.password = "";
                 userBAL.salt = "";
-                
+
             }
 
             return userBAL;
@@ -120,7 +121,7 @@ namespace BusinessLayer.Service
         // Login method
         public int Login(string username, string password)
         {
-            int userType = 0;        
+            int userType = 0;
 
             // to check if user is the db 
             User userExists = GetUser(username);
@@ -145,8 +146,34 @@ namespace BusinessLayer.Service
 
             return userType;
         }
+
+        public string DeleteUser(User user)
+        {
+
+            return _UserRepo.DeleteUser(user.username);
+        }
+
+        public string[] GetAllUsers()
+        {
+            List<user> usersDAL = _UserRepo.GetAllUsers();
+
+            string[] userBAL = new string[usersDAL.Count];
+
+            if (usersDAL != null)
+            {
+                for (int i = 0; i < usersDAL.Count ; i++){
+                    user userDALObj = usersDAL[i];
+                    userBAL[i] = userDALObj.username;
+                }
+               
+            }
+
+            return userBAL;
+        }
+
+
+
+
     }
-
-
 }
 

@@ -316,6 +316,7 @@
     <Content Include="ApiScripts\Services\sessionService.js" />
     <Content Include="ApiViews\AddUser.html" />
     <Content Include="ApiViews\AdminDashboard.html" />
+    <Content Include="ApiViews\DeleteUser.html" />
     <Content Include="ApiViews\Login.html" />
     <Content Include="ApiViews\UploadBalance.html" />
     <Content Include="ApiViews\UserDashboard.html" />

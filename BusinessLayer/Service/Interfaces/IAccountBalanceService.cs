@@ -17,6 +17,5 @@ namespace BusinessLayer.Service.Interfaces
         List<AccountBalance> ViewBalanceChart(int startYear, int startMonth, int endYear, int endMonth);
         // method to view current account balance
         double[] ViewCurrentBalance(string accountType);
-        string strconcat(string str);
     }
 }

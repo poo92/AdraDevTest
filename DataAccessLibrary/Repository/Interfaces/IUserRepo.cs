@@ -12,5 +12,8 @@ namespace DataAccessLibrary.Repository.Interfaces
         string AddUser(user user);
         user ViewUser(string username);
 
+        string DeleteUser(string username);
+
+        List<user> GetAllUsers();
     }
 }

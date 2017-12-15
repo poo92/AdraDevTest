@@ -4,13 +4,15 @@
     $scope.showViewBalanceModal = false;
     $scope.showViewBalanceChartModal = false;
     $scope.isVisibleCurrentBalancePanel = false;
-
+    $scope.showDeletePopup = false;
+    $scope.usernameFiltered = [];
 
     // username of logged user
     $scope.username = sessionService.get("username");
+    console.log($scope.username);
     // months array
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-   
+
     // load relevent page according to button press
     $scope.HandleButtonPress = function (event) {
         buttonid = event.target.id;
@@ -29,10 +31,14 @@
 
         } else if (buttonid == "addUser") {
             $scope.viewPage = "../ApiViews/AddUser.html";
+
+        } else if (buttonid == "deleteUser") {
+            this.GetAllUsers();
+            $scope.viewPage = "../ApiViews/DeleteUser.html";
         }
     }
 
-    
+
     // add user function
     $scope.AddUser = function () {
         var user = '{username:"' + $scope.username + '",password: "' + $scope.password + '",userType: "' + $scope.userType + '",fname: "' + $scope.fname + '",lname: "' + $scope.lname + '"}';
@@ -52,6 +58,58 @@
         })
     }
 
+    $scope.GetAllUsers = function () {       
+        $http({
+            method: "POST",
+            url: "../api/User/GetAllUSers",
+            dataType: 'json',            
+            headers: { "Content-Type": "application/json" }
+        }).then(function OnSuccess(response) {            
+            $scope.usernames = response.data;                      
+            for (var i = 0; i < response.data.length; i++) {
+               if($scope.usernames[i] != $scope.username){
+                   $scope.usernameFiltered.push($scope.usernames[i]);
+                }
+            }
+
+            console.log($scope.usernameFiltered)
+        }, function OnError(Error) {
+            alert("An error occured while loading usernames.")
+        })
+    }
+
+    $scope.ShowDeletePopup = function () {
+        $scope.showDeletePopup = true;
+    }
+
+    $scope.HandleNoButton = function () {
+        $scope.showDeletePopup = false;       
+        $window.location.href = "#!AdminDashboard/";
+        $window.alert("User is not deleted.");
+
+    }
+    // delete user function
+    $scope.DeleteUser = function () {
+        $scope.showDeletePopup = false;
+        var user = '{username:"' + $scope.usernameDelete + '"}';
+        $http({
+            method: "POST",
+            url: "../api/User/DeleteUser",
+            dataType: 'json',
+            data: user,
+            headers: { "Content-Type": "application/json" }
+        }).then(function OnSuccess(response) {
+            $window.alert(response.data);
+            if (response.data == "deleted successfully") {
+                $window.location.href = "#!AdminDashboard/";
+            }
+        }, function OnError(Error) {
+            alert("An error occured. Please try again later.")
+        })
+       
+    }
+
+
     // upload account balance
     $scope.UploadBalance = function () {
         // get year
@@ -67,7 +125,7 @@
             if (extention == "txt") {
                 var reader = new FileReader();
                 reader.readAsText(file, "UTF-8");
-                reader.onload = function (evt) {                   
+                reader.onload = function (evt) {
                     var userRequest = '{year:"' + year + '",fileContent: "' + evt.target.result + '"}';
                     // call controller method
                     $http({
@@ -173,7 +231,7 @@
         var endYear = $scope.endYear;
 
         // check for validity of the parameteres
-        if (startYear > endYear) {      
+        if (startYear > endYear) {
             $window.alert(" Start Year must be eqal or less than the End Year. \n Please enter valid values.");
         } else if (startYear == endYear) {
             if (startMonth > endMonth) {
@@ -220,7 +278,7 @@
                     $scope.$parent.marketing.push(value.marketing);
                     $scope.$parent.parking.push(value.parking);
                 });
-                              
+
                 // create the chart using balance arrays
                 Highcharts.chart('chartContainer', {
 
@@ -288,7 +346,7 @@
             } else {
                 // if account balances are not available
                 $window.alert("No account balances are available for this time period");
-                
+
             }
         }, function OnError(Error) {
             console.log(Error)
